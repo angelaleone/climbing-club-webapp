@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title>My App</v-toolbar-title>
+      <v-toolbar-title>ISU Climbing Club</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn>
         <RouterLink to="/" exact>Home</RouterLink>
