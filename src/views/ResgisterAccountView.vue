@@ -1,6 +1,15 @@
 <script></script>
 <template>
-  <!-- <h3>Register Account</h3> -->
+  <div class="page-title-container">
+    <v-row>
+      <!-- I can't get icons to work rn -->
+      <!-- <div>
+        <v-icon icon="mdi-arrow">mdi-arrow</v-icon>
+      </div> -->
+      <span class="page-title">Register Account</span>
+    </v-row>
+  </div>
+
   <div class="content-container">
     <v-col>
       <v-row>
@@ -40,7 +49,7 @@
 
 <style>
 .content-container {
-  padding-top: 20vh;
+  padding-top: 10vh;
 }
 .name-input {
   padding: 1vh;
@@ -56,5 +65,12 @@
 .btn {
   min-width: 10vh;
   margin: 5vh;
+}
+.page-title {
+  font-size: x-large;
+}
+.page-title-container {
+  padding-top: 5vh;
+  margin-left: -25vh;
 }
 </style>
