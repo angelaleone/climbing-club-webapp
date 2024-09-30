@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TheWelcome from '../components/TheWelcome.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import TheWelcome from '../components/TheWelcome.vue'
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus">+</v-btn>
+                <v-btn icon="mdi-plus"><RouterLink to="/register">+</RouterLink></v-btn>
               </div>
             </v-row>
           </v-col>
@@ -27,7 +28,7 @@ import TheWelcome from '../components/TheWelcome.vue'
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus">+</v-btn>
+                <v-btn icon="mdi-plus"><RouterLink to="/createrideevent">+</RouterLink></v-btn>
               </div>
             </v-row>
           </v-col>
@@ -41,7 +42,9 @@ import TheWelcome from '../components/TheWelcome.vue'
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus">+</v-btn>
+                <v-btn icon="mdi-plus"
+                  ><RouterLink to="/createattendancesheet">+</RouterLink></v-btn
+                >
               </div>
             </v-row>
           </v-col>

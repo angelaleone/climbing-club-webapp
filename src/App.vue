@@ -12,13 +12,13 @@ import { RouterLink, RouterView } from 'vue-router'
       >
       <v-spacer></v-spacer>
       <v-btn>
-        <RouterLink to="/about" exact>Roster</RouterLink>
+        <RouterLink to="/roster" exact>Roster</RouterLink>
       </v-btn>
       <v-btn>
-        <RouterLink to="/about">Ride Events</RouterLink>
+        <RouterLink to="/rideevents">Ride Events</RouterLink>
       </v-btn>
       <v-btn>
-        <RouterLink to="/about">Attendance</RouterLink>
+        <RouterLink to="/attendancesheets">Attendance</RouterLink>
       </v-btn>
     </v-app-bar>
 
