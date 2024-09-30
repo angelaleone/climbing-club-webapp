@@ -5,13 +5,20 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <v-app>
     <v-app-bar app>
-      <v-toolbar-title>ISU Climbing Club</v-toolbar-title>
+      <v-toolbar-title>
+        <v-btn text="true">
+          <RouterLink to="/" exact>ClimbingClub RockRoster</RouterLink>
+        </v-btn></v-toolbar-title
+      >
       <v-spacer></v-spacer>
       <v-btn>
-        <RouterLink to="/" exact>Home</RouterLink>
+        <RouterLink to="/about" exact>Roster</RouterLink>
       </v-btn>
       <v-btn>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/about">Ride Events</RouterLink>
+      </v-btn>
+      <v-btn>
+        <RouterLink to="/about">Attendance</RouterLink>
       </v-btn>
     </v-app-bar>
 
