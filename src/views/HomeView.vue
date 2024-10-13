@@ -5,11 +5,12 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div class="home">
-    <v-row>
+    <v-row class="home-row">
       <div class="card-container">
         <v-card class="card">
           <v-col>
             <div class="card-title">
+              <!-- <v-icon large class="card-icon">mdi-account</v-icon> -->
               <span>Register Accounts</span>
             </div>
             <v-row>
@@ -57,28 +58,49 @@ import { RouterLink } from 'vue-router'
 .home {
   padding: 5vh;
   padding-top: 28vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  width: 100%;
 }
+
+.home-row {
+  display: flex;
+  gap: 2vh;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
 .card-container {
-  padding: 2vh;
+  display: flex;
+  justify-content: center;
 }
+
 .card {
   width: 40vh;
   height: 25vh;
   background-color: #d3d3d3;
-  align-items: center;
   border-radius: 3vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .card-title {
-  padding-top: 7vh;
+  /* margin: auto; */
+  padding-top: 7.5vh;
   padding-left: 7vh;
-  margin-left: 2vh;
+  margin-left: 1vh;
   font-size: x-large;
   justify-self: center;
 }
+.card-icon {
+  color: #4a4a4a;
+}
 .add-btn {
-  align-self: last baseline;
-  margin-left: 33vh;
-  margin-top: 6.5vh;
+  position: absolute;
+  bottom: 2vh;
+  right: 2vh;
 }
 </style>
