@@ -59,17 +59,15 @@ import { RouterLink } from 'vue-router'
   padding: 5vh;
   padding-top: 28vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
 }
 
 .home-row {
   display: flex;
   gap: 2vh;
-  justify-content: center;
   width: 100%;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-container {
