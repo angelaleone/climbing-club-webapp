@@ -11,10 +11,15 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "dev-all": "concurrently \"npm run dev\" \"npm run start-backend\""
   },
   "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
     "it-363-project": "file:",
+    "pg": "^8.13.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
@@ -23,14 +28,18 @@
     "@mdi/font": "^7.4.47",
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.5",
+    "@types/node": "^20.16.11",
+    "@types/pg": "^8.11.10",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
+    "concurrently": "^9.0.1",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
     "jsdom": "^24.1.0",
@@ -42,5 +51,10 @@
     "vitest": "^1.6.0",
     "vue-tsc": "^2.0.21",
     "vuetify": "^3.7.0-beta.1"
-  }
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
