@@ -1,15 +1,26 @@
+<script></script>
 <template>
-  <div class="about">
-    <h1>This is creating attendance sheets</h1>
+  <div>
+    <div class="title-row">
+      <v-row>
+        <div class="back-btn">
+          <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
+        </div>
+        <h1>Create Attendance Sheet</h1>
+      </v-row>
+    </div>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+<style scoped>
+.title-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 5vh;
+}
+.back-btn {
+  margin-top: 0.3vh;
+  padding-right: 2vh;
 }
 </style>

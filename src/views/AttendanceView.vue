@@ -1,9 +1,15 @@
+<script lang="ts"></script>
 <template>
   <div>
     <v-row class="title-row">
       <h1>Attendance Sheets</h1>
       <v-spacer></v-spacer>
-      <v-btn variant="outlined" prepend-icon="mdi-plus">Create</v-btn>
+      <v-btn
+        variant="outlined"
+        prepend-icon="mdi-plus"
+        @click="$router.push('/createattendancesheet')"
+        >Create</v-btn
+      >
     </v-row>
   </div>
 </template>
