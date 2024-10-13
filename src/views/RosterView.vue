@@ -1,10 +1,17 @@
-<script></script>
+<script lang="ts"></script>
 <template>
   <div class="center">
     <v-row class="title-row">
       <h1>Roster</h1>
       <v-spacer></v-spacer>
-      <v-btn variant="outlined" prepend-icon="mdi-plus">Create</v-btn>
+      <v-btn
+        variant="outlined"
+        prepend-icon="mdi-plus"
+        style="margin-right: 8px"
+        @click="$router.push('/register')"
+        >register account</v-btn
+      >
+      <v-btn variant="outlined" prepend-icon="mdi-download">download csv</v-btn>
     </v-row>
     <div class="content-container">
       <v-col>

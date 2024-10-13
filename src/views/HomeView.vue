@@ -5,6 +5,9 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div class="home">
+    <v-row class="welcome">
+      <h1>Welcome to RockRoster</h1>
+    </v-row>
     <v-row class="home-row">
       <div class="card-container">
         <v-card class="card">
@@ -57,11 +60,10 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .home {
   padding: 5vh;
-  padding-top: 28vh;
   display: flex;
   width: 100%;
+  flex-direction: column;
 }
-
 .home-row {
   display: flex;
   gap: 2vh;
@@ -69,12 +71,10 @@ import { RouterLink } from 'vue-router'
   align-items: center;
   justify-content: center;
 }
-
 .card-container {
   display: flex;
   justify-content: center;
 }
-
 .card {
   width: 40vh;
   height: 25vh;
@@ -100,5 +100,13 @@ import { RouterLink } from 'vue-router'
   position: absolute;
   bottom: 2vh;
   right: 2vh;
+}
+.welcome {
+  justify-content: center;
+  padding-top: 10vh;
+  padding-bottom: 8vh;
+  letter-spacing: 4.5px;
+  font-size: large;
+  font-weight: bold;
 }
 </style>

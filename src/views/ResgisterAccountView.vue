@@ -1,12 +1,12 @@
 <script></script>
 <template>
-  <div class="page-container">
-    <div class="page-title-container">
+  <div>
+    <div class="title-row">
       <v-row>
         <div class="back-btn">
           <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
         </div>
-        <span class="page-title">Register Account</span>
+        <h1>Register Account</h1>
       </v-row>
     </div>
 
@@ -67,18 +67,19 @@
   min-width: 10vh;
   margin: 5vh;
 }
-.page-title {
-  font-size: x-large;
-}
-.page-title-container {
-  padding-left: 15vh;
+
+.title-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: 5vh;
 }
 .row-styles {
   justify-content: center;
   align-items: center;
 }
 .back-btn {
-  margin-top: -0.35vh;
+  margin-top: 0.3vh;
   padding-right: 2vh;
 }
 </style>

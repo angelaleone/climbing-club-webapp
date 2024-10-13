@@ -1,17 +1,17 @@
+<script lang="ts"></script>
 <template>
-  <div class="container">
+  <div>
     <v-row class="title-row">
       <h1>Ride Events</h1>
       <v-spacer></v-spacer>
-      <v-btn variant="outlined" prepend-icon="mdi-plus">Create</v-btn>
+      <v-btn variant="outlined" prepend-icon="mdi-plus" @click="$router.push('/createrideevent')"
+        >Create</v-btn
+      >
     </v-row>
   </div>
 </template>
 
 <style scoped>
-.container {
-}
-
 .title-row {
   display: flex;
   align-items: center;
