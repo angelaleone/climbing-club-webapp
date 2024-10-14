@@ -1,19 +1,39 @@
 <script lang="ts">
-// import { defineComponent, onMounted, ref } from 'vue'
-// import axios from 'axios'
+import { defineComponent, ref, onMounted } from 'vue'
+import axios from 'axios'
+interface Account {
+  accountID: string
+  admin_user: string
+  first_name: string
+  last_name: string
+  phone: string
+  ilstu_email: string
+  username_ilstu: string
+  password: string
+}
 
-// export default defineComponent({
-//   name: 'Roster-View',
-//   setup() {
-//     const accounts = ref<any[]>([])
+export default defineComponent({
+  name: 'Roster-View',
+  setup() {
+    const accounts = ref<Account[]>([])
 
-//     onMounted(() => {
-//       getAllAccounts()
-//     })
+    const fetchAccounts = async () => {
+      try {
+        const response = await axios.get<Account[]>('http://localhost:3001/api/accounts')
+        accounts.value = response.data
+        console.log(accounts.value, 'response', response.data)
+      } catch (error) {
+        console.error('Error fetching accounts:')
+      }
+    }
 
-//     return { accounts }
-//   }
-// })
+    onMounted(fetchAccounts)
+
+    return {
+      accounts
+    }
+  }
+})
 </script>
 <template>
   <div class="center">
@@ -43,6 +63,9 @@
             </v-card-body>
           </v-card>
         </v-row>
+        <li v-for="account in accounts" :key="account.accountID" class="listing-data">
+          <span> {{ account.phone }}</span>
+        </li>
       </v-col>
     </div>
   </div>
@@ -80,5 +103,11 @@
 .center {
   justify-content: center;
   align-items: center;
+}
+.listing-data {
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+  padding-left: 20vh;
 }
 </style>
