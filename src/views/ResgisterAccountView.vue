@@ -48,7 +48,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .content-container {
   padding-top: 10vh;
 }
