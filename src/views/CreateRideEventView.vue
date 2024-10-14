@@ -29,7 +29,7 @@ const date = ref()
           </div>
         </v-row>
         <v-row class="date-row">
-          <div class="date-label">Select date:</div>
+          <div class="date-label">Select date and time:</div>
           <div>
             <VueDatePicker v-model="date"></VueDatePicker>
           </div>
