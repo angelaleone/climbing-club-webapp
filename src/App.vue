@@ -7,7 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <v-app-bar app>
       <v-toolbar-title>
         <v-btn text="true">
-          <RouterLink to="/" exact>ClimbingClub RockRoster</RouterLink>
+          <RouterLink to="/home" exact>ClimbingClub RockRoster</RouterLink>
         </v-btn></v-toolbar-title
       >
       <v-spacer></v-spacer>

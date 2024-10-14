@@ -12,12 +12,13 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "start-backend": "node ..it-363-project/src/api/server.ts",
+    "start-backend": "node ./src/api/server.ts",
     "dev-all": "concurrently \"npm run dev\" \"npm run start-backend\""
   },
   "dependencies": {
     "axios": "^1.7.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "it-363-project": "file:",
     "pg": "^8.13.0",
