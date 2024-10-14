@@ -78,7 +78,7 @@ import { RouterLink } from 'vue-router'
 .card {
   width: 40vh;
   height: 25vh;
-  background-color: #d3d3d3;
+  background-color: #9cafb7;
   border-radius: 3vh;
   display: flex;
   flex-direction: column;
