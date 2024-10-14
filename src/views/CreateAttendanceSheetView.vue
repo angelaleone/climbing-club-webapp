@@ -1,4 +1,19 @@
-<script></script>
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+
+export default defineComponent({
+  name: 'CreateAttendanceSheet',
+  setup() {
+    const date = ref()
+
+    return {
+      date
+    }
+  }
+})
+</script>
 <template>
   <div>
     <div class="title-row">

@@ -1,9 +1,18 @@
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
-const date = ref()
+export default defineComponent({
+  name: 'CreateRideEvent',
+  setup() {
+    const date = ref<Date | null>(null)
+
+    return {
+      date
+    }
+  }
+})
 </script>
 <template>
   <div>
