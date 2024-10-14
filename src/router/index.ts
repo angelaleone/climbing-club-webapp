@@ -6,12 +6,18 @@ import AttendanceView from '@/views/AttendanceView.vue'
 import CreateAttendanceSheetView from '@/views/CreateAttendanceSheetView.vue'
 import CreateRideEventView from '@/views/CreateRideEventView.vue'
 import ResgisterAccountView from '@/views/ResgisterAccountView.vue'
+import LoginScreen from '@/views/LoginScreen.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'login',
+      component: LoginScreen
+    },
+    {
+      path: '/home',
       name: 'home',
       component: HomeView
     },

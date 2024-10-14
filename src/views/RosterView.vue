@@ -1,4 +1,40 @@
-<script lang="ts"></script>
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue'
+import axios from 'axios'
+interface Account {
+  accountID: string
+  admin_user: string
+  first_name: string
+  last_name: string
+  phone: string
+  ilstu_email: string
+  username_ilstu: string
+  password: string
+}
+
+export default defineComponent({
+  name: 'Roster-View',
+  setup() {
+    const accounts = ref<Account[]>([])
+
+    const fetchAccounts = async () => {
+      try {
+        const response = await axios.get<Account[]>('http://localhost:3001/api/accounts')
+        accounts.value = response.data
+        console.log(accounts.value, 'response', response.data)
+      } catch (error) {
+        console.error('Error fetching accounts:')
+      }
+    }
+
+    onMounted(fetchAccounts)
+
+    return {
+      accounts
+    }
+  }
+})
+</script>
 <template>
   <div class="center">
     <v-row class="title-row">
@@ -17,7 +53,7 @@
       <v-col>
         <v-row class="center">
           <!-- member card  -->
-          <v-card class="member-card">
+          <!-- <v-card class="member-card">
             <v-card-title>Angela Leone</v-card-title>
             <v-card-body>
               <v-col>
@@ -25,8 +61,12 @@
                 <div>ajleon5@ilstu.edu</div>
               </v-col>
             </v-card-body>
-          </v-card>
+          </v-card> -->
         </v-row>
+        <li v-for="account in accounts" :key="account.accountID" class="listing-data">
+          {{ account.first_name }} {{ account.last_name }}
+          <span> {{ account.phone }}</span>
+        </li>
       </v-col>
     </div>
   </div>
@@ -64,5 +104,12 @@
 .center {
   justify-content: center;
   align-items: center;
+}
+.listing-data {
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+  margin-top: 5vh;
+  padding-left: 20vh;
 }
 </style>
