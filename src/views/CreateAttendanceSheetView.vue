@@ -39,7 +39,7 @@ export default defineComponent({
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn"> submit </v-btn>
+            <v-btn class="btn" @click="$router.push('/attendance')"> create and start </v-btn>
           </div>
         </v-row>
       </v-col>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+const adminView = ref(true) //add this to the store
 </script>
 
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app v-if="adminView">
       <v-toolbar-title>
         <v-btn text="true">
           <RouterLink to="/home" exact>ClimbingClub RockRoster</RouterLink>
