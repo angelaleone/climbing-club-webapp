@@ -53,7 +53,7 @@ export default defineComponent({
       <v-col>
         <v-row class="center">
           <!-- member card  -->
-          <v-card class="member-card">
+          <!-- <v-card class="member-card">
             <v-card-title>Angela Leone</v-card-title>
             <v-card-body>
               <v-col>
@@ -61,9 +61,10 @@ export default defineComponent({
                 <div>ajleon5@ilstu.edu</div>
               </v-col>
             </v-card-body>
-          </v-card>
+          </v-card> -->
         </v-row>
         <li v-for="account in accounts" :key="account.accountID" class="listing-data">
+          {{ account.first_name }} {{ account.last_name }}
           <span> {{ account.phone }}</span>
         </li>
       </v-col>
@@ -108,6 +109,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   padding: 1vh;
+  margin-top: 5vh;
   padding-left: 20vh;
 }
 </style>
