@@ -1,4 +1,22 @@
-<script lang="ts"></script>
+<script lang="ts">
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      data: []
+    }
+  },
+  async created() {
+    try {
+      const response = await axios.get('http://localhost:5000/api/accounts')
+      this.data = response.data
+      console.log('hitting data', this.data)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+}
+</script>
 <template>
   <div class="center">
     <v-row class="title-row">

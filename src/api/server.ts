@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5000
 //cors middleware
 app.use(cors())
 app.use(express.json())
-
 const pool = new Pool({
   user: 'postgres',
   host: 'database-2.cne6wcmom0vn.us-east-1.rds.amazonaws.com ',
@@ -17,7 +16,7 @@ const pool = new Pool({
   port: 5432
 })
 
-app.get('/api/data', async (req, res) => {
+app.get('/api/accounts', async (req, res) => {
   try {
     const result = await pool.query('SELECT * Accounts')
     res.json(result.rows)
