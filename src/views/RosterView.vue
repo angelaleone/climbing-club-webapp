@@ -1,21 +1,19 @@
 <script lang="ts">
-import axios from 'axios'
-export default {
-  data() {
-    return {
-      data: []
-    }
-  },
-  async created() {
-    try {
-      const response = await axios.get('http://localhost:5000/api/accounts')
-      this.data = response.data
-      console.log('hitting data', this.data)
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  }
-}
+// import { defineComponent, onMounted, ref } from 'vue'
+// import axios from 'axios'
+
+// export default defineComponent({
+//   name: 'Roster-View',
+//   setup() {
+//     const accounts = ref<any[]>([])
+
+//     onMounted(() => {
+//       getAllAccounts()
+//     })
+
+//     return { accounts }
+//   }
+// })
 </script>
 <template>
   <div class="center">
