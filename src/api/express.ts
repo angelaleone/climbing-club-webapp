@@ -16,6 +16,9 @@ app.get('/api/accounts', async (req, res) => {
     console.error(error)
     res.status(500).send('Server Error')
   }
+
+
+  
 })
 
 app.listen(PORT, () => {
