@@ -1,10 +1,15 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-interface Account {
-  id: number
-  name: string
-  email?: string
+export type Account = {
+  accountID: string
+  admin_user: string
+  first_name: string
+  last_name: string
+  phone: string
+  ilstu_email: string
+  username_ilstu: string
+  password: string
 }
 
 export const useAccountStore = defineStore('account', {

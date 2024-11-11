@@ -1,19 +1,14 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
-export type Account = {
-  accountID: string
-  admin_user: string
-  first_name: string
-  last_name: string
-  phone: string
-  ilstu_email: string
-  username_ilstu: string
-  password: string
-}
+import type { Account } from '@/stores/accountStore'
+import RosterCard from '@/components/RosterCard.vue'
 
 export default defineComponent({
   name: 'Roster-View',
+  components: {
+    RosterCard
+  },
   setup() {
     const accounts = ref<Account[]>([])
 
@@ -51,21 +46,9 @@ export default defineComponent({
     </v-row>
     <div class="content-container">
       <v-col>
-        <v-row class="center">
-          <!-- member card  -->
-          <!-- <v-card class="member-card">
-            <v-card-title>Angela Leone</v-card-title>
-            <v-card-body>
-              <v-col>
-                <div>Phone: (999)999-9999</div>
-                <div>ajleon5@ilstu.edu</div>
-              </v-col>
-            </v-card-body>
-          </v-card> -->
-        </v-row>
+        <v-row class="center"> </v-row>
         <li v-for="account in accounts" :key="account.accountID" class="listing-data">
-          {{ account.first_name }} {{ account.last_name }}
-          <span> {{ account.phone }}</span>
+          <roster-card :account="account"></roster-card>
         </li>
       </v-col>
     </div>
@@ -106,10 +89,10 @@ export default defineComponent({
   align-items: center;
 }
 .listing-data {
+  list-style-type: none;
   justify-content: center;
   align-items: center;
   padding: 1vh;
-  margin-top: 5vh;
   padding-left: 20vh;
 }
 </style>
