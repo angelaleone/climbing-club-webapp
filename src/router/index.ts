@@ -7,6 +7,8 @@ import CreateAttendanceSheetView from '@/views/CreateAttendanceSheetView.vue'
 import CreateRideEventView from '@/views/CreateRideEventView.vue'
 import ResgisterAccountView from '@/views/ResgisterAccountView.vue'
 import LoginScreen from '@/views/LoginScreen.vue'
+import AttendanceIntakeView from '@/views/member/AttendanceIntakeView.vue'
+import { useUserStore } from '@/stores/userStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,8 +60,21 @@ const router = createRouter({
       path: '/createattendancesheet',
       name: 'createAttemdanceSheet',
       component: CreateAttendanceSheetView
+    },
+    {
+      path: '/attendance',
+      name: 'AttendanceIntake',
+      component: AttendanceIntakeView
     }
   ]
+})
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  if (to.path === '/') {
+    userStore.clearSelectedUser()
+    console.log('user store reset on login')
+  }
+  next()
 })
 
 export default router

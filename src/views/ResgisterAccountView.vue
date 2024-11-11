@@ -40,7 +40,7 @@
             <v-btn class="btn"> cancel </v-btn>
           </div>
           <div>
-            <v-btn class="btn"> submit </v-btn>
+            <v-btn class="submit-btn btn"> submit </v-btn>
           </div>
         </v-row>
       </v-col>
@@ -81,5 +81,8 @@
 .back-btn {
   margin-top: 0.3vh;
   padding-right: 2vh;
+}
+.submit-btn {
+  background-color: #ead2ac;
 }
 </style>

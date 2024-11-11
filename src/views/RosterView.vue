@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
-interface Account {
+export type Account = {
   accountID: string
   admin_user: string
   first_name: string

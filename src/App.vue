@@ -1,15 +1,20 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useUserStore } from './stores/userStore'
+const userStore = useUserStore()
+const isAdmin = computed(() => userStore.isAdmin)
 </script>
 
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app v-if="isAdmin">
+      <!-- Use the computed property here -->
       <v-toolbar-title>
         <v-btn text="true">
           <RouterLink to="/home" exact>ClimbingClub RockRoster</RouterLink>
-        </v-btn></v-toolbar-title
-      >
+        </v-btn>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn>
         <RouterLink to="/roster" exact>Roster</RouterLink>

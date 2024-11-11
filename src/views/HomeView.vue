@@ -86,7 +86,7 @@ import { RouterLink } from 'vue-router'
   justify-content: center;
 }
 .card-title {
-  /* margin: auto; */
+  margin: auto;
   padding-top: 7.5vh;
   padding-left: 7vh;
   margin-left: 1vh;
