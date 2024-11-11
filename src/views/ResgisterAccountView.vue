@@ -1,4 +1,3 @@
-<script></script>
 <template>
   <div>
     <div class="title-row">
@@ -14,39 +13,90 @@
       <v-col>
         <v-row class="row-styles">
           <div class="name-input">
-            <v-text-field label="First Name"> </v-text-field>
+            <v-text-field v-model="firstName" label="First Name"></v-text-field>
           </div>
           <div class="name-input">
-            <v-text-field label="Last Name"> </v-text-field>
+            <v-text-field v-model="lastName" label="Last Name"></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field label="Phone Number"> </v-text-field>
+            <v-text-field v-model="phone" label="Phone Number"></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field label="ilstu email (@ilstu.edu)"> </v-text-field>
+            <v-text-field v-model="ilstuEmail" label="ilstu email (@ilstu.edu)"></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field label="Password (optional)"> </v-text-field>
+            <v-text-field
+              v-model="password"
+              label="Password (optional)"
+              type="password"
+            ></v-text-field>
           </div>
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn"> cancel </v-btn>
+            <v-btn class="btn" @click="cancel">cancel</v-btn>
           </div>
           <div>
-            <v-btn class="submit-btn btn"> submit </v-btn>
+            <v-btn class="submit-btn btn" @click="submit">submit</v-btn>
           </div>
         </v-row>
       </v-col>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import axios from 'axios'
+
+export default defineComponent({
+  name: 'RegisterAccount',
+  setup() {
+    const firstName = ref('')
+    const lastName = ref('')
+    const phone = ref('')
+    const ilstuEmail = ref('')
+    const password = ref('')
+
+    const submit = async () => {
+      try {
+        const response = await axios.post('http://localhost:3001/api/accounts/post', {
+          admin_user: false,
+          first_name: firstName.value,
+          last_name: lastName.value,
+          phone: phone.value,
+          ilstu_email: ilstuEmail.value,
+          username_ilstu: ilstuEmail.value.split('@')[0],
+          password: password.value
+        })
+        console.log('Account created:', response.data)
+      } catch (error) {
+        console.error('Error creating account:', error)
+      }
+    }
+
+    const cancel = () => {
+      //clear all fields and navigate back
+    }
+
+    return {
+      firstName,
+      lastName,
+      phone,
+      ilstuEmail,
+      password,
+      submit,
+      cancel
+    }
+  }
+})
+</script>
 
 <style scoped>
 .content-container {
