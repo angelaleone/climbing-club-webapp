@@ -1,4 +1,33 @@
-<script lang="ts"></script>
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue'
+import axios from 'axios'
+import RideEventCard from '@/components/RideEventCard.vue'
+
+export default defineComponent({
+  name: 'Ride-Events',
+  components: {
+    RideEventCard
+  },
+  setup() {
+    // const rideEvent = ref<RideEvent[]>([])
+    const rideEvent = {
+      rideEventID: 20,
+      location: '1500 Main St., Normal, IL',
+      date: '11/23/2024',
+      time: '5:00pm',
+      name: 'Upper Limits: Pink Out'
+    }
+
+    //fetch ride events
+
+    // onMounted(fetchRideEvents)
+
+    return {
+      rideEvent
+    }
+  }
+})
+</script>
 <template>
   <div>
     <v-row class="title-row">
@@ -8,6 +37,11 @@
         >Create</v-btn
       >
     </v-row>
+    <v-col>
+      <v-row class="title-row">
+        <ride-event-card :ride-event="rideEvent"></ride-event-card>
+      </v-row>
+    </v-col>
   </div>
 </template>
 
