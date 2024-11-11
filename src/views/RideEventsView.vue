@@ -1,7 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
-import type { RideEvent } from '@/api/types/RideEvent'
 import RideEventCard from '@/components/RideEventCard.vue'
 
 export default defineComponent({
