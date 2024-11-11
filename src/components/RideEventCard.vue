@@ -10,8 +10,13 @@
     </v-card-title>
     <v-card-body>
       <v-col class="card-body">
-        <v-row><v-icon>mdi-calendar-range</v-icon>{{ rideEvent.date }} {{ rideEvent.time }}</v-row>
-        <v-row><v-icon>mdi-map-marker</v-icon>Location: {{ rideEvent.location }}</v-row>
+        <v-row
+          ><v-icon class="icon">mdi-calendar-range</v-icon>{{ rideEvent.date }}
+          {{ rideEvent.time }}</v-row
+        >
+        <v-row
+          ><v-icon class="icon">mdi-map-marker</v-icon>Location: {{ rideEvent.location }}</v-row
+        >
       </v-col>
     </v-card-body>
   </v-card>
@@ -60,5 +65,8 @@ const deleterideEvent = () => {
 .card-body {
   margin-left: 2vh;
   margin-top: 1.5vh;
+}
+.icon {
+  margin-right: 1vh;
 }
 </style>
