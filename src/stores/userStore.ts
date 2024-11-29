@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+// store for the current user's information
 
 type User = {
   id: number

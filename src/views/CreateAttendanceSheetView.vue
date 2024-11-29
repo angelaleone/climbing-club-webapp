@@ -7,6 +7,13 @@ export default defineComponent({
   name: 'CreateAttendanceSheet',
   setup() {
     const date = ref()
+    const formattedDate = ref()
+    console.log('date', date)
+
+    function formatDate() {
+      formattedDate.value = new Date('Wed Nov 20 2024 11:36:00 GMT-0600').toLocaleDateString()
+      console.log('formatted date', date)
+    }
 
     return {
       date
@@ -29,7 +36,7 @@ export default defineComponent({
         <v-row class="date-row">
           <div class="date-label">Select date:</div>
           <div>
-            <VueDatePicker v-model="date"></VueDatePicker>
+            <VueDatePicker :enable-time-picker="false" v-model="date"></VueDatePicker>
           </div>
         </v-row>
         <v-row class="row-styles">
