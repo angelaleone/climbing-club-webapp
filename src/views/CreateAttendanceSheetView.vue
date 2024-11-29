@@ -12,6 +12,8 @@ export default defineComponent({
     const date = ref()
     const formattedDate = ref()
     console.log('date', date)
+    const loading = ref(false)
+
     //using the user store
     const userStore = useUserStore()
     const adminID = userStore.getAdminID
@@ -24,6 +26,7 @@ export default defineComponent({
     }
 
     const createAndNavigate = async () => {
+      loading.value = true
       formatDate()
       try {
         const response = await axios.post('http://localhost:3001/api/attendance/post', {
@@ -36,12 +39,16 @@ export default defineComponent({
       } catch (error) {
         console.error('Error creating attendance sheet:', error)
       }
-      router.push('/attendance')
+      router.push({
+        path: '/attendance',
+        force: true
+      })
     }
 
     return {
       date,
-      createAndNavigate
+      createAndNavigate,
+      loading
     }
   }
 })
@@ -71,7 +78,9 @@ export default defineComponent({
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="createAndNavigate()"> create and start </v-btn>
+            <v-btn class="btn" @click="createAndNavigate()" :loading="loading">
+              create and start
+            </v-btn>
           </div>
         </v-row>
       </v-col>

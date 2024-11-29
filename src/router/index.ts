@@ -8,6 +8,7 @@ import CreateRideEventView from '@/views/CreateRideEventView.vue'
 import ResgisterAccountView from '@/views/ResgisterAccountView.vue'
 import LoginScreen from '@/views/LoginScreen.vue'
 import AttendanceIntakeView from '@/views/member/AttendanceIntakeView.vue'
+import ConfirmAdmin from '@/views/ConfirmAdmin.vue'
 import { useUserStore } from '@/stores/userStore'
 
 const router = createRouter({
@@ -65,6 +66,11 @@ const router = createRouter({
       path: '/attendance',
       name: 'AttendanceIntake',
       component: AttendanceIntakeView
+    },
+    {
+      path: '/confirmadmin',
+      name: 'confirmAdmin',
+      component: ConfirmAdmin
     }
   ]
 })
