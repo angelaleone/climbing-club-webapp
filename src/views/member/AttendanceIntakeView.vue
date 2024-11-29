@@ -1,4 +1,19 @@
-<script></script>
+<script>
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'AttendanceIntake',
+  setup() {
+    function exitAttendanceMode() {
+      console.log('made it to the exit screen')
+    }
+
+    return {
+      exitAttendanceMode
+    }
+  }
+})
+</script>
 <template>
   <div>
     <div class="content-container">
@@ -8,6 +23,11 @@
         </div>
         <div>
           <v-btn outlined class="submit-btn btn">I'm Here!</v-btn>
+        </div>
+      </v-row>
+      <v-row>
+        <div>
+          <v-btn text @click="exitAttendanceMode()"> exit attendance mode</v-btn>
         </div>
       </v-row>
     </div>

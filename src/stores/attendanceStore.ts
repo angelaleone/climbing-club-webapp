@@ -5,7 +5,7 @@ import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
 const initial: AttendanceSheet = {
   attendanceSheetID: 0,
   adminID: 0,
-  //accountIDs: Account[],
+  accountIDs: [],
   date: ''
 }
 
