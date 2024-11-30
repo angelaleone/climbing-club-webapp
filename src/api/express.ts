@@ -111,6 +111,28 @@ app.post('/api/attendance/post', async (req: any, res: any) => {
   }
 })
 
+//UPDATE attendance sheet
+app.put('/api/attendance/:id', async (req: any, res: any) => {
+  const id = req.params.id
+  const { accountIDs } = req.body
+
+  try {
+    const updatedSheet = await pool.query(
+      'UPDATE "AttendanceSheet" SET accountIDs = $1 WHERE id = $2 RETURNING *',
+      [accountIDs, id]
+    )
+
+    if (updatedSheet.rows.length === 0) {
+      return res.status(404).json({ error: 'Record not found' })
+    }
+
+    return res.status(200).json(updatedSheet.rows[0])
+  } catch (error) {
+    console.error('Error updating accountIDs:', error)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
 })

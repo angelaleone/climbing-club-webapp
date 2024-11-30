@@ -2,6 +2,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import router from '@/router'
 import { useUserStore } from '@/stores/userStore'
+import { useAttendanceStore } from '@/stores/attendanceStore'
 
 export default defineComponent({
   name: 'AttendanceIntake',
@@ -16,13 +17,39 @@ export default defineComponent({
       uniqueKey.value++
     }
 
+    const loading = ref(false)
+    const input = ref('')
+    const attendanceStore = useAttendanceStore()
+    const attendanceID = attendanceStore.getAttendanceID
+    //this only works if we update the selected attendence sheet in the attendance sheet store in the create attendance screen
+
+    const clearAndAdd = async () => {
+      loading.value = true
+      try {
+        const response = await axios.put(`/api/attendance/${attendanceID}`, {
+          accountIDs: accountIDs.value
+        })
+        input.value = ''
+        loading.value = false
+        return response.data
+      } catch (error) {
+        console.error('Error updating:', error)
+        input.value = ''
+        loading.value = false
+        throw error
+      }
+    }
+
     function exitAttendanceMode() {
       router.push('/confirmadmin')
       console.log('made it to the exit screen')
     }
 
     return {
-      exitAttendanceMode
+      clearAndAdd,
+      input,
+      exitAttendanceMode,
+      loading
     }
   }
 })
@@ -32,10 +59,12 @@ export default defineComponent({
     <v-col class="content-container">
       <v-row class="row-styles">
         <div class="long-input">
-          <v-text-field label="ULID"> </v-text-field>
+          <v-text-field label="ULID" v-model="input"> </v-text-field>
         </div>
         <div>
-          <v-btn outlined class="submit-btn btn">I'm Here!</v-btn>
+          <v-btn outlined class="submit-btn btn" :loading="loading" @click="clearAndAdd()"
+            >I'm Here!</v-btn
+          >
         </div>
       </v-row>
       <v-row class="bottom-row">

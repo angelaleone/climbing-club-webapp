@@ -25,5 +25,8 @@ export const useAttendanceStore = defineStore('account', {
     clearSelectedAccount() {
       this.selectedAttendanceSheet = initial
     }
+  },
+  getters: {
+    getAttendanceID: (state) => state.selectedAttendanceSheet.attendanceSheetID
   }
 })
