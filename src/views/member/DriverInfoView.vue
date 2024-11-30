@@ -24,7 +24,7 @@
 
     <div class="content-container">
       <v-col>
-        <v-row class="row-styles">
+        <v-row class="row-styles title-description">
           <span class="text-h6">Ride Sheet Information (Driver) </span>
         </v-row>
 
@@ -155,5 +155,8 @@ export default defineComponent({
 }
 .spacing-styles {
   padding-left: 1vh;
+}
+.title-description {
+  padding-bottom: 2vh;
 }
 </style>
