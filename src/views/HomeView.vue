@@ -56,7 +56,7 @@ export default defineComponent({
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus" @click="attendance()"></v-btn>
+                <v-btn icon="mdi-plus" @click="rideEvent()"></v-btn>
               </div>
             </v-row>
           </v-col>
@@ -70,7 +70,7 @@ export default defineComponent({
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus" @click="rideEvent()"></v-btn>
+                <v-btn icon="mdi-plus" @click="attendance()"></v-btn>
               </div>
             </v-row>
           </v-col>

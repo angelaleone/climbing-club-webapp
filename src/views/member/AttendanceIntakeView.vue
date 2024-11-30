@@ -17,6 +17,7 @@ export default defineComponent({
       uniqueKey.value++
     }
 
+    const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
     const attendanceStore = useAttendanceStore()
@@ -25,12 +26,17 @@ export default defineComponent({
 
     const clearAndAdd = async () => {
       loading.value = true
+      showThanks.value = true
+      setTimeout(() => {
+        showThanks.value = false
+      }, 1500)
       try {
         const response = await axios.put(`/api/attendance/${attendanceID}`, {
           accountIDs: accountIDs.value
         })
         input.value = ''
         loading.value = false
+
         return response.data
       } catch (error) {
         console.error('Error updating:', error)
@@ -49,7 +55,8 @@ export default defineComponent({
       clearAndAdd,
       input,
       exitAttendanceMode,
-      loading
+      loading,
+      showThanks
     }
   }
 })
@@ -62,10 +69,18 @@ export default defineComponent({
           <v-text-field label="ULID" v-model="input"> </v-text-field>
         </div>
         <div>
-          <v-btn outlined class="submit-btn btn" :loading="loading" @click="clearAndAdd()"
+          <v-btn
+            outlined
+            class="submit-btn btn"
+            rounded="xl"
+            :loading="loading"
+            @click="clearAndAdd()"
             >I'm Here!</v-btn
           >
         </div>
+      </v-row>
+      <v-row class="row-styles">
+        <div class="thanks-message" :class="{ 'show-thanks': showThanks }">Thanks!</div>
       </v-row>
       <v-row class="bottom-row">
         <div class="exit-btn">
@@ -122,5 +137,23 @@ export default defineComponent({
 .bottom-row {
   justify-content: center;
   padding-top: 30vh;
+}
+
+.thanks-message {
+  /*might change this to not animate so much*/
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: all 0.5s ease;
+  color: black;
+  font-size: 1em;
+  pointer-events: none;
+}
+
+.show-thanks {
+  bottom: 45vh;
+  opacity: 1;
 }
 </style>
