@@ -54,7 +54,9 @@
 
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="submit-btn btn" rounded="xl" @click="submit">confirm</v-btn>
+            <v-btn class="submit-btn btn" rounded="xl" @click="submit" :loading="loading"
+              >confirm</v-btn
+            >
           </div>
         </v-row>
       </v-col>
@@ -75,10 +77,11 @@ export default defineComponent({
     const phone = ref('')
     const ilstuEmail = ref('')
     const password = ref('')
+    const loading = ref(false)
 
     const submit = async () => {
-      //router.push()
       try {
+        loading.value = true
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,
           first_name: firstName.value,
@@ -88,10 +91,13 @@ export default defineComponent({
           username_ilstu: ilstuEmail.value.split('@')[0],
           password: password.value
         })
+        loading.value = false
         console.log('Account created:', response.data)
       } catch (error) {
+        loading.value = false
         console.error('Error creating account:', error)
       }
+      router.push('/ridesheet')
     }
 
     return {
@@ -100,7 +106,8 @@ export default defineComponent({
       phone,
       ilstuEmail,
       password,
-      submit
+      submit,
+      loading
     }
   }
 })
