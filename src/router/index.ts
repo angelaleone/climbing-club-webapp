@@ -10,6 +10,9 @@ import LoginScreen from '@/views/LoginScreen.vue'
 import AttendanceIntakeView from '@/views/member/AttendanceIntakeView.vue'
 import ConfirmAdmin from '@/views/ConfirmAdmin.vue'
 import { useUserStore } from '@/stores/userStore'
+import RideSheetInitialView from '@/views/member/RideSheetInitialView.vue'
+import DriverInfoView from '@/views/member/DriverInfoView.vue'
+import RiderInfoView from '@/views/member/RiderInfoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -71,6 +74,21 @@ const router = createRouter({
       path: '/confirmadmin',
       name: 'confirmAdmin',
       component: ConfirmAdmin
+    },
+    {
+      path: '/ridesheetselection',
+      name: 'rideSheetSelection',
+      component: RideSheetInitialView
+    },
+    {
+      path: '/riderinfo',
+      name: 'riderInfo',
+      component: RiderInfoView
+    },
+    {
+      path: '/driverinfo',
+      name: 'driverInfo',
+      component: DriverInfoView
     }
   ]
 })
