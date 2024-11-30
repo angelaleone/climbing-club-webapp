@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+// store for the current user's information
 
 type User = {
   id: number
@@ -33,7 +34,8 @@ export const useUserStore = defineStore('user', {
     }
   }),
   getters: {
-    isAdmin: (state) => state.selectedUser?.adminUser === true
+    isAdmin: (state) => state.selectedUser?.adminUser === true,
+    getAdminID: (state) => state.selectedUser.id
   },
   actions: {
     setSelectedUser(user: User) {

@@ -1,6 +1,30 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
+import router from '@/router'
+
+export default defineComponent({
+  name: 'HomeView',
+  setup() {
+    function register() {
+      router.push('/register')
+    }
+
+    function attendance() {
+      router.push('/createattendancesheet')
+    }
+
+    function rideEvent() {
+      router.push('/createrideevent')
+    }
+
+    return {
+      register,
+      attendance,
+      rideEvent
+    }
+  }
+})
 </script>
 
 <template>
@@ -18,7 +42,7 @@ import { RouterLink } from 'vue-router'
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus"><RouterLink to="/register">+</RouterLink></v-btn>
+                <v-btn icon="mdi-plus" @click="register()"></v-btn>
               </div>
             </v-row>
           </v-col>
@@ -32,7 +56,7 @@ import { RouterLink } from 'vue-router'
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus"><RouterLink to="/createrideevent">+</RouterLink></v-btn>
+                <v-btn icon="mdi-plus" @click="rideEvent()"></v-btn>
               </div>
             </v-row>
           </v-col>
@@ -46,9 +70,7 @@ import { RouterLink } from 'vue-router'
             </div>
             <v-row>
               <div class="add-btn">
-                <v-btn icon="mdi-plus"
-                  ><RouterLink to="/createattendancesheet">+</RouterLink></v-btn
-                >
+                <v-btn icon="mdi-plus" @click="attendance()"></v-btn>
               </div>
             </v-row>
           </v-col>

@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+// store for account uses (roster)
 export type Account = {
   accountID: string
   admin_user: string
