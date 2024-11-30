@@ -31,11 +31,7 @@
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field
-              v-model="password"
-              label="Password (optional)"
-              type="password"
-            ></v-text-field>
+            <v-text-field v-model="password" label="Password" type="password"></v-text-field>
           </div>
         </v-row>
         <v-row class="btn-group-container">

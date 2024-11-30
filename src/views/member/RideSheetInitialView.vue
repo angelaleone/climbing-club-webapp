@@ -19,11 +19,13 @@ export default defineComponent({
 
     function navigateToDriverInfo() {
       //router push
+      router.push('/driverinfo')
       //set store vairables?
     }
 
     function navigateToRiderInfo() {
       //router push
+      router.push('/riderinfo')
       //set store variables
     }
 
@@ -62,6 +64,14 @@ export default defineComponent({
             </v-col>
           </v-card>
         </div>
+      </v-row>
+      <v-row>
+        <v-col class="bottom-row">
+          <div class="icon-container">
+            <span>OR</span>
+          </div>
+          <div class="icon-container"><v-btn variant="plain">see ride sheet</v-btn></div>
+        </v-col>
       </v-row>
     </v-col>
   </div>
@@ -104,5 +114,9 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.bottom-row {
+  justify-content: center;
+  padding-top: 20vh;
 }
 </style>
