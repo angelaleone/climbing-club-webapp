@@ -317,7 +317,6 @@ export const createPassenger = async (passengerID: string, accountID: string) =>
 
 // Create Ride
 export const createRide = async (
-  rideID: string,
   driverID: string,
   rideEventID: string,
   passengerID: string,
@@ -325,8 +324,8 @@ export const createRide = async (
 ) => {
   try {
     const newRide = await pool.query(
-      'INSERT INTO "Ride" (rideID, driverID, rideEventID, passengerID, num_of_seats) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [rideID, driverID, rideEventID, passengerID, num_of_seats]
+      'INSERT INTO "Ride" (, "driverID", "rideEventID", "passengerID", num_of_seats) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [driverID, rideEventID, passengerID, num_of_seats]
     )
     return newRide.rows[0]
   } catch (err) {
@@ -342,7 +341,7 @@ export const createRide = async (
 // Get All Rides
 export const getAllRides = async () => {
   try {
-    const Rides = await pool.query('SELECT * FROM "Ride"')
+    const Rides = await pool.query('SELECT * FROM "Rriide"')
     return Rides.rows
   } catch (err) {
     if (err instanceof Error) {
