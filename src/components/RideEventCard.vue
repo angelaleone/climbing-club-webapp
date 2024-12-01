@@ -5,7 +5,7 @@
         <div>{{ rideEvent.name }}</div>
         <v-spacer></v-spacer>
         <v-icon size="x-small" @click="deleterideEvent" class="delete-icon">mdi-delete</v-icon>
-        <v-icon size="x-small" @click="editrideEvent" class="edit-icon">mdi-share</v-icon>
+        <v-icon size="x-small" @click="shareRideEvent" class="edit-icon">mdi-share</v-icon>
       </v-row>
     </v-card-title>
     <v-card-body>
@@ -24,12 +24,14 @@
 
 <script setup lang="ts">
 import type { RideEvent } from '@/api/types/RideEvent'
+import router from '@/router'
 
 const props = defineProps<{ rideEvent: RideEvent }>()
 const rideEvent = props.rideEvent
 
-const editrideEvent = () => {
-  console.log('Edit event', rideEvent)
+const shareRideEvent = () => {
+  console.log('share event', rideEvent)
+  router.push('/ridesheetselection')
 }
 
 const deleterideEvent = () => {

@@ -1,45 +1,66 @@
 <template>
   <div>
     <div class="title-row">
-      <v-row>
-        <div class="back-btn">
-          <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
-        </div>
-        <h1>Register Account</h1>
-      </v-row>
+      <v-col>
+        <v-row>
+          <div class="back-btn">
+            <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
+          </div>
+          <!-- this will be interpolated from store variables  -->
+          <h1>Upper Limits Trip 10/9/2024</h1>
+        </v-row>
+        <v-row class="event-subtitle">
+          <v-icon>mdi-clock-outline</v-icon>
+          <span text-subtitle-1 class="spacing-styles">5:00pm</span>
+        </v-row>
+        <v-row class="event-subtitle">
+          <v-icon>mdi-map-marker-outline</v-icon>
+          <span text-subtitle-1 class="spacing-styles"
+            >1304 W Washington St, Bloomington, IL 61701</span
+          >
+        </v-row>
+      </v-col>
     </div>
 
     <div class="content-container">
       <v-col>
+        <v-row class="row-styles title-description">
+          <span class="text-h6">Ride Sheet Information (Driver) </span>
+        </v-row>
+
         <v-row class="row-styles">
           <div class="name-input">
-            <v-text-field v-model="firstName" label="First Name"></v-text-field>
+            <!-- the placeholders will all have interpolated values from userStore  -->
+            <v-text-field variant="outlined" readonly placeholder="Angela"></v-text-field>
           </div>
           <div class="name-input">
-            <v-text-field v-model="lastName" label="Last Name"></v-text-field>
+            <v-text-field variant="outlined" readonly placeholder="Leone"></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field v-model="phone" label="Phone Number"></v-text-field>
+            <v-text-field variant="outlined" readonly placeholder="(555)555-5555"></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field v-model="ilstuEmail" label="ilstu email (@ilstu.edu)"></v-text-field>
+            <v-text-field
+              variant="outlined"
+              readonly
+              placeholder="ajleon5@ilstu.edu"
+            ></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
-          <div class="long-input">
-            <v-text-field v-model="password" label="Password" type="password"></v-text-field>
+          <div class="name-input">
+            <v-select :items="numbers" density="comfortable" label="Number of Seats"></v-select>
           </div>
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="cancel">cancel</v-btn>
-          </div>
-          <div>
-            <v-btn class="submit-btn btn" @click="submit">submit</v-btn>
+            <v-btn class="submit-btn btn" rounded="xl" :loading="loading" @click="submit"
+              >submit</v-btn
+            >
           </div>
         </v-row>
       </v-col>
@@ -50,18 +71,22 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import axios from 'axios'
+import router from '@/router'
 
 export default defineComponent({
-  name: 'RegisterAccount',
+  name: 'DriverInfo',
   setup() {
     const firstName = ref('')
     const lastName = ref('')
     const phone = ref('')
     const ilstuEmail = ref('')
     const password = ref('')
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const loading = ref(false)
 
     const submit = async () => {
       try {
+        loading.value = true
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,
           first_name: firstName.value,
@@ -71,14 +96,13 @@ export default defineComponent({
           username_ilstu: ilstuEmail.value.split('@')[0],
           password: password.value
         })
+        loading.value = false
         console.log('Account created:', response.data)
       } catch (error) {
         console.error('Error creating account:', error)
+        loading.value = false
       }
-    }
-
-    const cancel = () => {
-      //clear all fields and navigate back
+      router.push('/confirm')
     }
 
     return {
@@ -88,7 +112,8 @@ export default defineComponent({
       ilstuEmail,
       password,
       submit,
-      cancel
+      loading,
+      numbers
     }
   }
 })
@@ -130,5 +155,15 @@ export default defineComponent({
 }
 .submit-btn {
   background-color: #ead2ac;
+}
+.event-subtitle {
+  padding-top: 1vh;
+  padding-left: 8vh;
+}
+.spacing-styles {
+  padding-left: 1vh;
+}
+.title-description {
+  padding-bottom: 2vh;
 }
 </style>
