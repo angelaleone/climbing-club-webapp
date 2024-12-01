@@ -4,27 +4,24 @@
       <v-icon size="48" color="success">mdi-check-circle-outline</v-icon>
       <h2>Thank you for your submission!</h2>
       <div class="ride-details">
-        <p>Your ride: Angela Leone</p>
-        <p>(555)555-5555</p>
-        <p>ajleon5@ilstu.edu</p>
+        <p>{{ firtName }} {{ lastName }}</p>
+        <p>{{ phone }}</p>
+        <p>{{ email }}</p>
       </div>
       <v-divider class="divider"></v-divider>
     </v-container>
     <div class="title-row">
       <v-col>
         <v-row>
-          <!-- this will be interpolated from store variables  -->
-          <h1>Upper Limits Trip 10/9/2024</h1>
+          <h1>{{ eventName }}</h1>
         </v-row>
         <v-row class="event-subtitle">
           <v-icon>mdi-clock-outline</v-icon>
-          <span text-subtitle-1 class="spacing-styles">5:00pm</span>
+          <span text-subtitle-1 class="spacing-styles">{{ formattedDate }}</span>
         </v-row>
         <v-row class="event-subtitle">
           <v-icon>mdi-map-marker-outline</v-icon>
-          <span text-subtitle-1 class="spacing-styles"
-            >1304 W Washington St, Bloomington, IL 61701</span
-          >
+          <span text-subtitle-1 class="spacing-styles">{{ eventLocation }}</span>
         </v-row>
       </v-col>
     </div>
@@ -33,9 +30,41 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useRideEventStore } from '@/stores/rideEventStore'
+import { toZonedTime } from 'date-fns-tz'
+import { format } from 'date-fns'
+import { useUserStore } from '@/stores/userStore'
 
 export default defineComponent({
-  name: 'ConfirmationScreen'
+  name: 'ConfirmationScreen',
+  setup() {
+    const rideStore = useRideEventStore()
+    const currentRideEvent = rideStore.getCurrentRideEvent
+    const eventName = currentRideEvent.name
+    const eventLocation = currentRideEvent.location
+    const eventDate = currentRideEvent.date
+
+    const utcDate = new Date(eventDate)
+    const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
+    const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
+
+    const userStore = useUserStore()
+    const user = userStore.getCurrentUser
+    const firtName = user.first_name
+    const lastName = user.last_name
+    const phone = user.phone
+    const email = user.email
+
+    return {
+      eventName,
+      eventLocation,
+      formattedDate,
+      firtName,
+      lastName,
+      phone,
+      email
+    }
+  }
 })
 </script>
 
