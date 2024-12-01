@@ -120,11 +120,11 @@ export const deleteAccount = async (id: string) => {
 export const createAttendanceSheet = async (
   admin_user: string,
   adminID: string,
-  attendees: string[],
+  attendees: string[]
 ) => {
   try {
     const newAttendanceSheet = await pool.query(
-      'INSERT INTO "AttendanceSheet" (admin_user, adminID, attendees) VALUES ($1, $2, $3) RETURNING *',
+      'INSERT INTO "AttendanceSheet" (adminID, attendees, date) VALUES ($1, $2, $3) RETURNING *',
       [admin_user, adminID, attendees]
     )
     return newAttendanceSheet.rows[0]
@@ -156,7 +156,10 @@ export const getAllAttendanceSheets = async () => {
 // Get AttendanceSheet by ID
 export const getAttendanceSheetById = async (id: string) => {
   try {
-    const AttendanceSheet = await pool.query('SELECT * FROM "AttendanceSheet" WHERE attendanceSheetID = $1', [id])
+    const AttendanceSheet = await pool.query(
+      'SELECT * FROM "AttendanceSheet" WHERE attendanceSheetID = $1',
+      [id]
+    )
     if (AttendanceSheet.rows.length === 0) {
       throw new Error('Attendance Sheet not found')
     }
@@ -175,7 +178,7 @@ export const getAttendanceSheetById = async (id: string) => {
 export const updateAttendanceSheet = async (
   admin_user: string,
   adminID: string,
-  attendees: string[],
+  attendees: string[]
 ) => {
   try {
     const updatedAttendanceSheet = await pool.query(
@@ -252,10 +255,7 @@ export const getPassengerById = async (id: string) => {
 }
 
 // Update Passenger
-export const updatePassenger = async (
-  passengerID: string,
-  accountID: string,
-) => {
+export const updatePassenger = async (passengerID: string, accountID: string) => {
   try {
     const updatedPassenger = await pool.query(
       'UPDATE "Passenger" SET passengerID = $1, accountID = $2 RETURNING *',
@@ -298,10 +298,7 @@ export const deletePassenger = async (id: string) => {
 }
 
 // Create Passenger
-export const createPassenger = async (
-  passengerID: string,
-  accountID: string,
-) => {
+export const createPassenger = async (passengerID: string, accountID: string) => {
   try {
     const newPassenger = await pool.query(
       'INSERT INTO "Passenger" (passengerID, accountID) VALUES ($1, $2) RETURNING *',
@@ -324,7 +321,7 @@ export const createRide = async (
   driverID: string,
   rideEventID: string,
   passengerID: string,
-  num_of_seats: string,
+  num_of_seats: string
 ) => {
   try {
     const newRide = await pool.query(
@@ -381,7 +378,7 @@ export const updateRide = async (
   driverID: string,
   rideEventID: string,
   passengerID: string,
-  num_of_seats: string,
+  num_of_seats: string
 ) => {
   try {
     const updatedRide = await pool.query(
@@ -406,10 +403,7 @@ export const updateRide = async (
 // Delete Ride
 export const deleteRide = async (id: string) => {
   try {
-    const deletedRide = await pool.query(
-      'DELETE FROM "Ride" WHERE rideID = $1 RETURNING *',
-      [id]
-    )
+    const deletedRide = await pool.query('DELETE FROM "Ride" WHERE rideID = $1 RETURNING *', [id])
     if (deletedRide.rows.length === 0) {
       throw new Error('Ride not found')
     }
@@ -430,7 +424,7 @@ export const createRideEvent = async (
   location: string,
   date: string,
   time: string,
-  name: string,
+  name: string
 ) => {
   try {
     const newRideEvent = await pool.query(
@@ -487,7 +481,7 @@ export const updateRideEvent = async (
   location: string,
   date: string,
   time: string,
-  name: string,
+  name: string
 ) => {
   try {
     const updatedRideEvent = await pool.query(
