@@ -2,8 +2,7 @@
   <v-card class="event-card">
     <v-card-title>
       <v-row class="title-row">
-        Attendance For
-        {{ attendanceSheet.date }}
+        Attendance For {{ attendanceSheet.date }}
         <v-spacer></v-spacer>
         <v-icon size="x-small" @click="deleteattendanceSheet" class="delete-icon"
           >mdi-delete</v-icon
@@ -21,6 +20,8 @@
 
 <script setup lang="ts">
 import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
+import { format } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 
 const props = defineProps<{ attendanceSheet: AttendanceSheet }>()
 const attendanceSheet = props.attendanceSheet
@@ -32,12 +33,18 @@ const editattendanceSheet = () => {
 const deleteattendanceSheet = () => {
   console.log('Delete sheet', attendanceSheet)
 }
+
+// const utcDate = new Date(attendanceSheet.date)
+// const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
+// const formattedDate = format(chicagoDate, 'MMMM dd, yyyy')
+
+// console.log(formattedDate)
 </script>
 
 <style scoped>
 .event-card {
   margin: 1vh;
-  width: 90%;
+  width: 110vh;
   height: 11.5vh;
 }
 .edit-icon {

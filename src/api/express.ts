@@ -1,8 +1,10 @@
 import express from 'express'
 import pool from './connection'
 import cors from 'cors'
+import { log } from 'console'
 import type { Account } from '@/stores/accountStore'
 import type { AttendanceSheet } from './types/AttendanceSheet'
+import type { RideEvent } from './types/RideEvent'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -97,12 +99,14 @@ app.get('/api/attendance/:id', async (req, res: any) => {
 
 // POST attendance sheet
 app.post('/api/attendance/post', async (req: any, res: any) => {
-  const { attendanceSheetID, adminID, accountIDs, date }: AttendanceSheet = req.body
+  const { adminID, attendees, date }: AttendanceSheet = req.body
+  log('Request: ', attendees)
+  log('Assertion: ', Array.isArray(attendees))
 
   try {
     const newAttendanceSheet = await pool.query(
-      'INSERT INTO "Account" (attendanceSheetID, adminID, accountIDs, date) VALUES ($1, $2, $3, $4) RETURNING *',
-      [attendanceSheetID, adminID, accountIDs, date]
+      'INSERT INTO "AttendanceSheet" (adminid, attendees, date) VALUES ($1, $2, $3) RETURNING *',
+      [adminID, attendees, date]
     )
     return res.status(201).json(newAttendanceSheet.rows[0])
   } catch (error) {
@@ -118,7 +122,7 @@ app.put('/api/attendance/:id', async (req: any, res: any) => {
 
   try {
     const updatedSheet = await pool.query(
-      'UPDATE "AttendanceSheet" SET accountIDs = $1 WHERE id = $2 RETURNING *',
+      'UPDATE "AttendanceSheet" SET attendees = $1 WHERE id = $2 RETURNING *',
       [accountIDs, id]
     )
 
@@ -129,6 +133,33 @@ app.put('/api/attendance/:id', async (req: any, res: any) => {
     return res.status(200).json(updatedSheet.rows[0])
   } catch (error) {
     console.error('Error updating accountIDs:', error)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
+//GET all ride events
+app.get('/api/rideevent', async (req: any, res: any) => {
+  try {
+    const result = await pool.query('SELECT * FROM "RideEvent"')
+    return res.json(result.rows)
+  } catch (err) {
+    console.error('Unknown error', err)
+    res.status(500).send('Server Error')
+  }
+})
+
+//POST ride event
+app.post('/api/rideevent/post', async (req: any, res: any) => {
+  const { location, date, name }: RideEvent = req.body
+
+  try {
+    const newRideEvent = await pool.query(
+      'INSERT INTO "RideEvent" (location, date, name) VALUES ($1, $2, $3) RETURNING *',
+      [location, date, name]
+    )
+    return res.status(201).json(newRideEvent.rows[0])
+  } catch (error) {
+    console.error('Error creating ride event:', error)
     return res.status(500).json({ error: 'Internal server error' })
   }
 })

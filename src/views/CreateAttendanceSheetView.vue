@@ -34,9 +34,8 @@ export default defineComponent({
       formatDate()
       try {
         const response = await axios.post('http://localhost:3001/api/attendance/post', {
-          // attendanceSheetID: 11,
-          adminID: adminID,
-          accountIDs: [],
+          adminID: 1,
+          attendees: [],
           date: formattedDate.value
         })
         console.log('attendance sheet created:', response.data)

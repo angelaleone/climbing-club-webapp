@@ -11,7 +11,7 @@
     <v-card-body>
       <v-col class="card-body">
         <v-row
-          ><v-icon class="icon">mdi-calendar-range</v-icon>{{ rideEvent.date }}
+          ><v-icon class="icon">mdi-calendar-range</v-icon>{{ formattedDate }}
           {{ rideEvent.time }}</v-row
         >
         <v-row
@@ -25,9 +25,14 @@
 <script setup lang="ts">
 import type { RideEvent } from '@/api/types/RideEvent'
 import router from '@/router'
+import { format } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 
 const props = defineProps<{ rideEvent: RideEvent }>()
 const rideEvent = props.rideEvent
+const utcDate = new Date(rideEvent.date)
+const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
+const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
 const shareRideEvent = () => {
   console.log('share event', rideEvent)
@@ -42,7 +47,7 @@ const deleterideEvent = () => {
 <style scoped>
 .event-card {
   margin: 1vh;
-  width: 90%;
+  width: 110vh;
   height: 13vh;
 }
 .edit-icon {

@@ -2,6 +2,7 @@
 import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
 import AttendanceSheetCard from '@/components/AttendanceSheetCard.vue'
+import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
 
 export default defineComponent({
   name: 'Attendance-Sheets',
@@ -9,20 +10,31 @@ export default defineComponent({
     AttendanceSheetCard
   },
   setup() {
-    // const rideEvent = ref<RideEvent[]>([])
+    const attendanceSheets = ref()
+
+    const fetchAttendanceSheets = async () => {
+      try {
+        const response = await axios.get<AttendanceSheet[]>('http://localhost:3001/api/attendance')
+        attendanceSheets.value = response.data
+        console.log(attendanceSheets.value, 'response', response.data)
+      } catch (error) {
+        console.error('Error fetching attendance sheets')
+      }
+    }
+    onMounted(fetchAttendanceSheets)
+
     const attendance = {
       attendanceSheetID: 0,
       adminID: 1,
-      // accountIDs: Account[],
-      date: '11/29/20224' //TODO make this a Date object
+      accountIDs: [],
+      date: '11/29/20224'
     }
-
-    //fetch ride events
 
     // onMounted(fetchRideEvents)
 
     return {
-      attendance
+      attendance,
+      attendanceSheets
     }
   }
 })
@@ -41,7 +53,14 @@ export default defineComponent({
     </v-row>
     <v-col>
       <v-row class="title-row">
-        <attendance-sheet-card :attendance-sheet="attendance"></attendance-sheet-card>
+        <!-- <attendance-sheet-card :attendance-sheet="attendance"></attendance-sheet-card> -->
+        <li
+          v-for="attendance in attendanceSheets"
+          :key="attendance.attendanceSheetID"
+          class="listing-data"
+        >
+          <attendance-sheet-card :attendance-sheet="attendance"></attendance-sheet-card>
+        </li>
       </v-row>
     </v-col>
   </div>
@@ -55,5 +74,12 @@ export default defineComponent({
   padding-top: 5vh;
   padding-left: 15vh;
   padding-right: 15vh;
+}
+.listing-data {
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+  padding-left: 20vh;
 }
 </style>
