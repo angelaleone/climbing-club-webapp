@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 // store for account uses (roster)
 export type Account = {
-  accountID: string
+  accountid: string
   admin_user: string
   first_name: string
   last_name: string
