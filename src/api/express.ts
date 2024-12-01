@@ -4,6 +4,7 @@ import cors from 'cors'
 import { log } from 'console'
 import type { Account } from '@/stores/accountStore'
 import type { AttendanceSheet } from './types/AttendanceSheet'
+import type { RideEvent } from './types/RideEvent'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -144,6 +145,22 @@ app.get('/api/rideevent', async (req: any, res: any) => {
   } catch (err) {
     console.error('Unknown error', err)
     res.status(500).send('Server Error')
+  }
+})
+
+//POST ride event
+app.post('/api/rideevent/post', async (req: any, res: any) => {
+  const { location, date, name }: RideEvent = req.body
+
+  try {
+    const newRideEvent = await pool.query(
+      'INSERT INTO "RideEvent" (location, date, name) VALUES ($1, $2, $3) RETURNING *',
+      [location, date, name]
+    )
+    return res.status(201).json(newRideEvent.rows[0])
+  } catch (error) {
+    console.error('Error creating ride event:', error)
+    return res.status(500).json({ error: 'Internal server error' })
   }
 })
 
