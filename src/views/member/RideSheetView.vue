@@ -22,7 +22,114 @@
       </v-col>
     </div>
 
-    <div class="content-container"></div>
+    <div class="content-container">
+      <v-row class="row-container">
+        <div class="card-div">
+          <v-card>
+            <v-card-title> Driver: Angela Leone </v-card-title>
+            <v-card-subtitle class="subtitle">
+              <v-row>
+                <span>phone: (555)555-5555</span>
+              </v-row>
+              <v-row>
+                <span>email: ajleon5@ilstu.edu</span>
+              </v-row>
+              <v-divider class="divider"></v-divider>
+            </v-card-subtitle>
+            <v-card-body>
+              <div class="body">
+                <v-radio-group>
+                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
+                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
+                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
+                </v-radio-group>
+              </div>
+            </v-card-body>
+            <v-card-actions>
+              <v-btn>submit</v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
+        <div class="card-div">
+          <v-card>
+            <v-card-title> Driver: Angela Leone </v-card-title>
+            <v-card-subtitle class="subtitle">
+              <v-row>
+                <span>phone: (555)555-5555</span>
+              </v-row>
+              <v-row>
+                <span>email: ajleon5@ilstu.edu</span>
+              </v-row>
+              <v-divider class="divider"></v-divider>
+            </v-card-subtitle>
+            <v-card-body>
+              <div class="body">
+                <v-radio-group>
+                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
+                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
+                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
+                </v-radio-group>
+              </div>
+            </v-card-body>
+            <v-card-actions>
+              <v-btn>submit</v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
+        <div class="card-div">
+          <v-card>
+            <v-card-title> Driver: Angela Leone </v-card-title>
+            <v-card-subtitle class="subtitle">
+              <v-row>
+                <span>phone: (555)555-5555</span>
+              </v-row>
+              <v-row>
+                <span>email: ajleon5@ilstu.edu</span>
+              </v-row>
+              <v-divider class="divider"></v-divider>
+            </v-card-subtitle>
+            <v-card-body>
+              <div class="body">
+                <v-radio-group>
+                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
+                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
+                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
+                </v-radio-group>
+              </div>
+            </v-card-body>
+            <v-card-actions>
+              <v-btn>submit</v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
+        <div class="card-div">
+          <v-card>
+            <v-card-title> Driver: Angela Leone </v-card-title>
+            <v-card-subtitle class="subtitle">
+              <v-row>
+                <span>phone: (555)555-5555</span>
+              </v-row>
+              <v-row>
+                <span>email: ajleon5@ilstu.edu</span>
+              </v-row>
+              <v-divider class="divider"></v-divider>
+            </v-card-subtitle>
+            <v-card-body>
+              <div class="body">
+                <v-radio-group>
+                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
+                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
+                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
+                </v-radio-group>
+              </div>
+            </v-card-body>
+            <v-card-actions>
+              <v-btn>submit</v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -58,13 +165,16 @@ export default defineComponent({
       }
     }
 
+    const selected = ref([])
+
     return {
       firstName,
       lastName,
       phone,
       ilstuEmail,
       password,
-      submit
+      submit,
+      selected
     }
   }
 })
@@ -74,27 +184,17 @@ export default defineComponent({
 .content-container {
   padding-top: 10vh;
 }
-.name-input {
-  padding: 1vh;
-  width: 40vh;
-}
-.long-input {
-  padding: 1vh;
-  width: 80vh;
-}
-.btn-group-container {
-  justify-content: center;
-}
-.btn {
-  min-width: 10vh;
-  margin: 5vh;
-}
 
-.title-row {
+.row-container {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 90%;
+  padding-left: 25vh;
   padding-top: 5vh;
+  padding-right: 25vh;
+  height: 100%;
+  margin: 0;
+  justify-content: space-between;
 }
 .row-styles {
   justify-content: center;
@@ -104,17 +204,39 @@ export default defineComponent({
   margin-top: 0.3vh;
   padding-right: 2vh;
 }
-.submit-btn {
-  background-color: #ead2ac;
-}
+
 .event-subtitle {
   padding-top: 1vh;
   padding-left: 8vh;
 }
-.spacing-styles {
-  padding-left: 1vh;
+
+.card-div {
+  width: 30vh;
+  height: auto;
+  margin: 1vh;
+  margin-bottom: 2vh;
 }
-.title-description {
-  padding-bottom: 2vh;
+.subtitle {
+  height: 10vh;
+  padding-top: 2vh;
+  margin-left: 1vh;
+}
+.body {
+  height: auto;
+  margin-bottom: 1vh;
+  margin-left: 3vh;
+  margin-right: 3vh;
+}
+.divider {
+  margin-top: 2.5vh;
+}
+.seat-styles {
+  margin-bottom: 1.5vh;
+}
+.radio-right {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
