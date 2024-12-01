@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import type { RideEvent } from '@/api/types/RideEvent'
 
 const initial: RideEvent = {
+  rideEventID: 0,
   location: '',
   date: '',
   time: '',
@@ -29,6 +30,7 @@ export const useRideEventStore = defineStore('rideEvent', {
   },
   getters: {
     // getAttendanceID: (state) => state.selectedRideEvent.attendanceSheetID,
-    getCurrentRideEvent: (state) => state.selectedRideEvent
+    getCurrentRideEvent: (state) => state.selectedRideEvent,
+    getRideEventId: (state) => state.selectedRideEvent.rideEventID
   }
 })
