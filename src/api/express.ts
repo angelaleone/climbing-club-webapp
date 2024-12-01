@@ -1,6 +1,7 @@
 import express from 'express'
 import pool from './connection'
 import cors from 'cors'
+import { log } from 'console'
 import type { Account } from '@/stores/accountStore'
 import type { AttendanceSheet } from './types/AttendanceSheet'
 
@@ -97,12 +98,14 @@ app.get('/api/attendance/:id', async (req, res: any) => {
 
 // POST attendance sheet
 app.post('/api/attendance/post', async (req: any, res: any) => {
-  const { attendanceSheetID, adminID, accountIDs, date }: AttendanceSheet = req.body
+  const { adminID, attendees, date }: AttendanceSheet = req.body
+  log('Request: ', attendees)
+  log('Assertion: ', Array.isArray(attendees))
 
   try {
     const newAttendanceSheet = await pool.query(
-      'INSERT INTO "Account" (attendanceSheetID, adminID, accountIDs, date) VALUES ($1, $2, $3, $4) RETURNING *',
-      [attendanceSheetID, adminID, accountIDs, date]
+      'INSERT INTO "AttendanceSheet" (adminid, attendees, date) VALUES ($1, $2, $3) RETURNING *',
+      [adminID, attendees, date]
     )
     return res.status(201).json(newAttendanceSheet.rows[0])
   } catch (error) {
