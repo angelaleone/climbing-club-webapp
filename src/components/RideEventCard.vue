@@ -11,7 +11,7 @@
     <v-card-body>
       <v-col class="card-body">
         <v-row
-          ><v-icon class="icon">mdi-calendar-range</v-icon>{{ rideEvent.date }}
+          ><v-icon class="icon">mdi-calendar-range</v-icon>{{ finalDate }}
           {{ rideEvent.time }}</v-row
         >
         <v-row
@@ -28,6 +28,13 @@ import router from '@/router'
 
 const props = defineProps<{ rideEvent: RideEvent }>()
 const rideEvent = props.rideEvent
+const formattedDate = rideEvent.date.replace(
+  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):.*$/,
+  '$3/$2/$1 $4:$5'
+)
+console.log(formattedDate)
+
+const finalDate = formattedDate.replace(/\b\d{2}:\d{2}\b(?!:)/, '').trim()
 
 const shareRideEvent = () => {
   console.log('share event', rideEvent)
@@ -42,7 +49,7 @@ const deleterideEvent = () => {
 <style scoped>
 .event-card {
   margin: 1vh;
-  width: 90%;
+  width: 110vh;
   height: 13vh;
 }
 .edit-icon {

@@ -133,6 +133,17 @@ app.put('/api/attendance/:id', async (req: any, res: any) => {
   }
 })
 
+//GET all ride events
+app.get('/api/rideevent', async (req: any, res: any) => {
+  try {
+    const result = await pool.query('SELECT * FROM "RideEvent"')
+    return res.json(result.rows)
+  } catch (err) {
+    console.error('Unknown error', err)
+    res.status(500).send('Server Error')
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
 })
