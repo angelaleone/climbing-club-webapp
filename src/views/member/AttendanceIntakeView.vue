@@ -3,6 +3,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import router from '@/router'
 import { useUserStore } from '@/stores/userStore'
 import { useAttendanceStore } from '@/stores/attendanceStore'
+import axios from 'axios'
 
 export default defineComponent({
   name: 'AttendanceIntake',
@@ -20,35 +21,42 @@ export default defineComponent({
     const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
+
+    //using attendance store
     const attendanceStore = useAttendanceStore()
     const attendanceID = attendanceStore.getAttendanceID
+    const currentAttendanceSheet = attendanceStore.getCurrentAttendanceSheet
+    const attendanceName = currentAttendanceSheet.date
     //this only works if we update the selected attendence sheet in the attendance sheet store in the create attendance screen
+    const attendees = ref([])
 
-    const clearAndAdd = async () => {
-      loading.value = true
+    function clearAndAdd() {
       showThanks.value = true
+      attendees.value.push(input.value)
+      console.log('attendees list ', attendees.value)
       setTimeout(() => {
         showThanks.value = false
       }, 1500)
+      input.value = ''
+    }
+
+    const exitAttendanceMode = async () => {
+      loading.value = true
+      //this put doesnt really work
       try {
         const response = await axios.put(`/api/attendance/${attendanceID}`, {
-          accountIDs: accountIDs.value
+          attendees: attendees.value
         })
-        input.value = ''
         loading.value = false
-
+        router.push('/confirmadmin')
+        console.log('made it to the exit screen')
         return response.data
       } catch (error) {
+        router.push('/confirmadmin')
         console.error('Error updating:', error)
-        input.value = ''
         loading.value = false
         throw error
       }
-    }
-
-    function exitAttendanceMode() {
-      router.push('/confirmadmin')
-      console.log('made it to the exit screen')
     }
 
     return {
@@ -56,7 +64,9 @@ export default defineComponent({
       input,
       exitAttendanceMode,
       loading,
-      showThanks
+      showThanks,
+      attendees,
+      attendanceName
     }
   }
 })
@@ -64,6 +74,9 @@ export default defineComponent({
 <template>
   <div>
     <v-col class="content-container">
+      <v-row class="title-row">
+        <span class="text-h4"> {{ attendanceName }} Attendance </span>
+      </v-row>
       <v-row class="row-styles">
         <div class="long-input">
           <v-text-field label="ULID" v-model="input"> </v-text-field>
@@ -118,7 +131,8 @@ export default defineComponent({
   display: flex;
   align-items: center;
   width: 100%;
-  padding-top: 5vh;
+  margin-top: -30vh;
+  margin-bottom: 20vh;
 }
 .row-styles {
   justify-content: center;

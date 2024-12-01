@@ -20,8 +20,7 @@
 
 <script setup lang="ts">
 import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
-import { format } from 'date-fns'
-import { toZonedTime } from 'date-fns-tz'
+import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps<{ attendanceSheet: AttendanceSheet }>()
 const attendanceSheet = props.attendanceSheet
@@ -33,12 +32,6 @@ const editattendanceSheet = () => {
 const deleteattendanceSheet = () => {
   console.log('Delete sheet', attendanceSheet)
 }
-
-// const utcDate = new Date(attendanceSheet.date)
-// const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
-// const formattedDate = format(chicagoDate, 'MMMM dd, yyyy')
-
-// console.log(formattedDate)
 </script>
 
 <style scoped>

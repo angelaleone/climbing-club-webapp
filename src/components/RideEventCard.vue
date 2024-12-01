@@ -27,6 +27,7 @@ import type { RideEvent } from '@/api/types/RideEvent'
 import router from '@/router'
 import { format } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
+import { useRideEventStore } from '@/stores/rideEventStore'
 
 const props = defineProps<{ rideEvent: RideEvent }>()
 const rideEvent = props.rideEvent
@@ -34,8 +35,11 @@ const utcDate = new Date(rideEvent.date)
 const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
 const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
+const rideStore = useRideEventStore()
+
 const shareRideEvent = () => {
   console.log('share event', rideEvent)
+  rideStore.setselectedRideEvent(rideEvent)
   router.push('/ridesheetselection')
 }
 

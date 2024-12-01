@@ -14,6 +14,7 @@ export default defineComponent({
     const formattedDate = ref()
     console.log('date', date)
     const loading = ref(false)
+    const adminName = ref()
 
     //using the user store
     const userStore = useUserStore()
@@ -57,7 +58,8 @@ export default defineComponent({
     return {
       date,
       createAndNavigate,
-      loading
+      loading,
+      adminName
     }
   }
 })
@@ -82,7 +84,7 @@ export default defineComponent({
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field label="Admin Name"> </v-text-field>
+            <v-text-field label="Admin Name" v-model="adminName"> </v-text-field>
           </div>
         </v-row>
         <v-row class="btn-group-container">

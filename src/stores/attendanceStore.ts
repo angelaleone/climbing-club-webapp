@@ -28,6 +28,7 @@ export const useAttendanceStore = defineStore('account', {
     }
   },
   getters: {
-    getAttendanceID: (state) => state.selectedAttendanceSheet.attendanceSheetID
+    getAttendanceID: (state) => state.selectedAttendanceSheet.attendanceSheetID,
+    getCurrentAttendanceSheet: (state) => state.selectedAttendanceSheet
   }
 })

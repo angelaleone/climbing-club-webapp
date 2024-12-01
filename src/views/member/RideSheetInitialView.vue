@@ -3,6 +3,9 @@ import { defineComponent, onMounted, ref } from 'vue'
 import router from '@/router'
 import { useUserStore } from '@/stores/userStore'
 import { useAttendanceStore } from '@/stores/attendanceStore'
+import { useRideEventStore } from '@/stores/rideEventStore'
+import { format } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 
 export default defineComponent({
   name: 'RideSheetInitialView',
@@ -16,6 +19,15 @@ export default defineComponent({
     const forceRerender = () => {
       uniqueKey.value++
     }
+    const rideStore = useRideEventStore()
+    const currentRideEvent = rideStore.getCurrentRideEvent
+    const eventName = currentRideEvent.name
+    const eventLocation = currentRideEvent.location
+    const eventDate = currentRideEvent.date
+
+    const utcDate = new Date(eventDate)
+    const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
+    const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
     function navigateToDriverInfo() {
       //router push
@@ -36,7 +48,10 @@ export default defineComponent({
     return {
       navigateToDriverInfo,
       navigateToRiderInfo,
-      seeRideSheet
+      seeRideSheet,
+      eventName,
+      formattedDate,
+      eventLocation
     }
   }
 })
@@ -44,6 +59,25 @@ export default defineComponent({
 <template>
   <div>
     <v-col class="content-container">
+      <div class="title-row">
+        <v-col>
+          <v-row>
+            <div class="back-btn">
+              <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
+            </div>
+            <!-- this will be interpolated from store variables  -->
+            <h1>{{ eventName }}</h1>
+          </v-row>
+          <v-row class="event-subtitle">
+            <v-icon>mdi-clock-outline</v-icon>
+            <span text-subtitle-1 class="spacing-styles">{{ formattedDate }}</span>
+          </v-row>
+          <v-row class="event-subtitle">
+            <v-icon>mdi-map-marker-outline</v-icon>
+            <span text-subtitle-1 class="spacing-styles">{{ eventLocation }}</span>
+          </v-row>
+        </v-col>
+      </div>
       <v-row class="center-row">
         <div>
           <v-card class="card" @click="navigateToDriverInfo()">
@@ -125,5 +159,28 @@ export default defineComponent({
 .bottom-row {
   justify-content: center;
   padding-top: 20vh;
+}
+.title-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: -40vh;
+  margin-bottom: 30vh;
+}
+.row-styles {
+  justify-content: center;
+  align-items: center;
+}
+.back-btn {
+  margin-top: 0.3vh;
+  padding-right: 2vh;
+}
+.event-subtitle {
+  padding-top: 1vh;
+  padding-left: 8vh;
+}
+.spacing-styles {
+  padding-left: 1vh;
+  margin-top: -0.15vh;
 }
 </style>

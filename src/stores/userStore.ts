@@ -35,7 +35,8 @@ export const useUserStore = defineStore('user', {
   }),
   getters: {
     isAdmin: (state) => state.selectedUser?.adminUser === true,
-    getAdminID: (state) => state.selectedUser.id
+    getAdminID: (state) => state.selectedUser.id,
+    getCurrentUser: (state) => state.selectedUser
   },
   actions: {
     setSelectedUser(user: User) {

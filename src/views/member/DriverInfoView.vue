@@ -7,17 +7,15 @@
             <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
           </div>
           <!-- this will be interpolated from store variables  -->
-          <h1>Upper Limits Trip 10/9/2024</h1>
+          <h1>{{ eventName }}</h1>
         </v-row>
         <v-row class="event-subtitle">
           <v-icon>mdi-clock-outline</v-icon>
-          <span text-subtitle-1 class="spacing-styles">5:00pm</span>
+          <span text-subtitle-1 class="spacing-styles">{{ formattedDate }}</span>
         </v-row>
         <v-row class="event-subtitle">
           <v-icon>mdi-map-marker-outline</v-icon>
-          <span text-subtitle-1 class="spacing-styles"
-            >1304 W Washington St, Bloomington, IL 61701</span
-          >
+          <span text-subtitle-1 class="spacing-styles">{{ eventLocation }}</span>
         </v-row>
       </v-col>
     </div>
@@ -72,6 +70,9 @@
 import { defineComponent, ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
+import { useRideEventStore } from '@/stores/rideEventStore'
+import { toZonedTime } from 'date-fns-tz'
+import { format } from 'date-fns'
 
 export default defineComponent({
   name: 'DriverInfo',
@@ -83,6 +84,16 @@ export default defineComponent({
     const password = ref('')
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const loading = ref(false)
+
+    const rideStore = useRideEventStore()
+    const currentRideEvent = rideStore.getCurrentRideEvent
+    const eventName = currentRideEvent.name
+    const eventLocation = currentRideEvent.location
+    const eventDate = currentRideEvent.date
+
+    const utcDate = new Date(eventDate)
+    const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
+    const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
     const submit = async () => {
       try {
@@ -113,7 +124,10 @@ export default defineComponent({
       password,
       submit,
       loading,
-      numbers
+      numbers,
+      eventName,
+      eventLocation,
+      formattedDate
     }
   }
 })
