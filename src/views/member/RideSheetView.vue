@@ -46,87 +46,18 @@
               </div>
             </v-card-body>
             <v-card-actions>
-              <v-btn>submit</v-btn>
+              <v-btn @click="submit">submit</v-btn>
             </v-card-actions>
           </v-card>
         </div>
         <div class="card-div">
-          <v-card>
-            <v-card-title> Driver: Angela Leone </v-card-title>
-            <v-card-subtitle class="subtitle">
-              <v-row>
-                <span>phone: (555)555-5555</span>
-              </v-row>
-              <v-row>
-                <span>email: ajleon5@ilstu.edu</span>
-              </v-row>
-              <v-divider class="divider"></v-divider>
-            </v-card-subtitle>
-            <v-card-body>
-              <div class="body">
-                <v-radio-group>
-                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
-                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
-                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
-                </v-radio-group>
-              </div>
-            </v-card-body>
-            <v-card-actions>
-              <v-btn>submit</v-btn>
-            </v-card-actions>
-          </v-card>
+          <carpool-card></carpool-card>
         </div>
         <div class="card-div">
-          <v-card>
-            <v-card-title> Driver: Angela Leone </v-card-title>
-            <v-card-subtitle class="subtitle">
-              <v-row>
-                <span>phone: (555)555-5555</span>
-              </v-row>
-              <v-row>
-                <span>email: ajleon5@ilstu.edu</span>
-              </v-row>
-              <v-divider class="divider"></v-divider>
-            </v-card-subtitle>
-            <v-card-body>
-              <div class="body">
-                <v-radio-group>
-                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
-                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
-                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
-                </v-radio-group>
-              </div>
-            </v-card-body>
-            <v-card-actions>
-              <v-btn>submit</v-btn>
-            </v-card-actions>
-          </v-card>
+          <carpool-card></carpool-card>
         </div>
         <div class="card-div">
-          <v-card>
-            <v-card-title> Driver: Angela Leone </v-card-title>
-            <v-card-subtitle class="subtitle">
-              <v-row>
-                <span>phone: (555)555-5555</span>
-              </v-row>
-              <v-row>
-                <span>email: ajleon5@ilstu.edu</span>
-              </v-row>
-              <v-divider class="divider"></v-divider>
-            </v-card-subtitle>
-            <v-card-body>
-              <div class="body">
-                <v-radio-group>
-                  <v-radio label="Seat 1" value="one" class="radio-right"></v-radio>
-                  <v-radio label="Seat 2" value="two" class="radio-right"></v-radio>
-                  <v-radio label="Seat 3" value="three" class="radio-right"></v-radio>
-                </v-radio-group>
-              </div>
-            </v-card-body>
-            <v-card-actions>
-              <v-btn>submit</v-btn>
-            </v-card-actions>
-          </v-card>
+          <carpool-card></carpool-card>
         </div>
       </v-row>
     </div>
@@ -137,9 +68,13 @@
 import { defineComponent, ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
+import CarpoolCard from '@/components/CarpoolCard.vue'
 
 export default defineComponent({
   name: 'RiderSheet',
+  components: {
+    CarpoolCard
+  },
   setup() {
     const firstName = ref('')
     const lastName = ref('')
@@ -148,7 +83,7 @@ export default defineComponent({
     const password = ref('')
 
     const submit = async () => {
-      //router.push()
+      //router.push() to confirmation screen
       try {
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,
