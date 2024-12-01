@@ -94,9 +94,10 @@ const router = createRouter({
     },
     // this will work differently for unique ride sheets
     {
-      path: '/ridesheet',
+      path: '/ridesheet/:uniqueToken',
       name: 'rideSheet',
-      component: RideSheetView
+      component: RideSheetView,
+      props: true
     },
     {
       path: '/confirm',
