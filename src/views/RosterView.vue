@@ -21,11 +21,33 @@ export default defineComponent({
         console.error('Error fetching accounts:')
       }
     }
+    const today = new Date()
+    const formattedDate = today.toISOString().slice(0, 10) // yyyy-mm-dd
+    const downloadCSV = () => {
+      const csvContent =
+        'data:text/csv;charset=utf-8,' +
+        'ID,First Name, Last Name, Email, Phone\n' +
+        accounts.value
+          .map(
+            (item) =>
+              `${item.accountid},${item.first_name}, ${item.last_name}, ${item.ilstu_email}, ${item.phone}`
+          )
+          .join('\n')
+
+      const encodedUri = encodeURI(csvContent)
+      const link = document.createElement('a')
+      link.setAttribute('href', encodedUri)
+      link.setAttribute('download', 'roster_data' + formattedDate + '.csv')
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }
 
     onMounted(fetchAccounts)
 
     return {
-      accounts
+      accounts,
+      downloadCSV
     }
   }
 })
@@ -42,12 +64,14 @@ export default defineComponent({
         @click="$router.push('/register')"
         >register account</v-btn
       >
-      <v-btn variant="outlined" prepend-icon="mdi-download">download csv</v-btn>
+      <v-btn variant="outlined" prepend-icon="mdi-download" @click="downloadCSV()"
+        >download csv</v-btn
+      >
     </v-row>
     <div class="content-container">
       <v-col>
         <v-row class="center"> </v-row>
-        <li v-for="account in accounts" :key="account.accountID" class="listing-data">
+        <li v-for="account in accounts" :key="account.accountid" class="listing-data">
           <roster-card :account="account"></roster-card>
         </li>
       </v-col>
