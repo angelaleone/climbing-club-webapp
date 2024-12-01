@@ -12,7 +12,7 @@ type User = {
   username: string
 }
 const initial: User = {
-  id: 0,
+  id: 1,
   adminUser: false, // Default to false
   first_name: '',
   last_name: '',
@@ -24,7 +24,7 @@ const initial: User = {
 export const useUserStore = defineStore('user', {
   state: (): { selectedUser: User } => ({
     selectedUser: {
-      id: 0,
+      id: 1,
       adminUser: false, // Default to false
       first_name: '',
       last_name: '',

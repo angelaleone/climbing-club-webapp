@@ -5,6 +5,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import router from '@/router'
 import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
+import { useAttendanceStore } from '@/stores/attendanceStore'
 
 export default defineComponent({
   name: 'CreateAttendanceSheet',
@@ -18,6 +19,9 @@ export default defineComponent({
     const userStore = useUserStore()
     const adminID = userStore.getAdminID
     console.log('adminID', adminID)
+
+    //using the attendance store
+    const useAttendance = useAttendanceStore()
 
     //formatting date from date object to string
     function formatDate() {
@@ -39,6 +43,12 @@ export default defineComponent({
       } catch (error) {
         console.error('Error creating attendance sheet:', error)
       }
+      const createdAttendanceSheet = {
+        adminID: adminID,
+        accountIDs: [],
+        date: formattedDate.value
+      }
+      useAttendance.setSelectedAttendanceSheet(createdAttendanceSheet)
       router.push({
         path: '/attendance',
         force: true

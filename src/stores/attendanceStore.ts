@@ -4,8 +4,8 @@ import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
 
 const initial: AttendanceSheet = {
   attendanceSheetID: 0,
-  adminID: 0,
-  accountIDs: [],
+  adminID: 1,
+  attendees: [],
   date: ''
 }
 
@@ -15,8 +15,9 @@ export const useAttendanceStore = defineStore('account', {
   }),
 
   actions: {
-    setSelectedAccount(attendanceSheet: AttendanceSheet) {
+    setSelectedAttendanceSheet(attendanceSheet: AttendanceSheet) {
       this.selectedAttendanceSheet = attendanceSheet
+      console.log('setting selected attendance sheet', this.selectedAttendanceSheet)
     },
     setDate(date: string) {
       this.selectedAttendanceSheet.date = date
