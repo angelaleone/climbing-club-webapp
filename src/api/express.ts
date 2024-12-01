@@ -121,7 +121,7 @@ app.put('/api/attendance/:id', async (req: any, res: any) => {
 
   try {
     const updatedSheet = await pool.query(
-      'UPDATE "AttendanceSheet" SET accountIDs = $1 WHERE id = $2 RETURNING *',
+      'UPDATE "AttendanceSheet" SET attendees = $1 WHERE id = $2 RETURNING *',
       [accountIDs, id]
     )
 

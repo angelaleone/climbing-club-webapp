@@ -2,7 +2,7 @@
   <v-card class="event-card">
     <v-card-title>
       <v-row class="title-row">
-        Attendance For {{ formattedDate }}
+        Attendance For {{ attendanceSheet.date }}
         <v-spacer></v-spacer>
         <v-icon size="x-small" @click="deleteattendanceSheet" class="delete-icon"
           >mdi-delete</v-icon
@@ -34,11 +34,11 @@ const deleteattendanceSheet = () => {
   console.log('Delete sheet', attendanceSheet)
 }
 
-const utcDate = new Date(attendanceSheet.date)
-const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
-const formattedDate = format(chicagoDate, 'MMMM dd, yyyy')
+// const utcDate = new Date(attendanceSheet.date)
+// const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
+// const formattedDate = format(chicagoDate, 'MMMM dd, yyyy')
 
-console.log(formattedDate)
+// console.log(formattedDate)
 </script>
 
 <style scoped>
