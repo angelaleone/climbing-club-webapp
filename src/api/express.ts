@@ -14,7 +14,7 @@ app.use(cors())
 
 // accounts queries
 
-//GET accounts
+//GET ALL accounts
 app.get('/api/accounts', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM "Account"')
@@ -26,17 +26,35 @@ app.get('/api/accounts', async (req, res) => {
 })
 
 //GET accounts by id
-app.get('/api/accounts/:id', async (req, res: any) => {
-  const { id } = req.params
+// app.get('/api/accounts/:id', async (req, res: any) => {
+//   const { id } = req.params
 
+//   try {
+//     const result = await pool.query('SELECT * FROM "Account" WHERE accountID = $1', [id])
+//     if (result.rows.length === 0) {
+//       return res.status(404).json({ error: 'Account not found' })
+//     }
+//     return res.status(200).json(result.rows[0])
+//   } catch (error) {
+//     console.error('Error fetching account:', error)
+//     return res.status(500).json({ error: 'Internal server error' })
+//   }
+// })
+
+//GET accounts by ulid
+app.get('/api/accounts/:username_ilstu', async (req, res: any) => {
+  const { username_ilstu } = req.query
   try {
-    const result = await pool.query('SELECT * FROM "Account" WHERE accountID = $1', [id])
+    const result = await pool.query('SELECT * FROM "Account" WHERE username_ilstu LIKE $1', [
+      username_ilstu
+    ])
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Account not found' })
     }
+
     return res.status(200).json(result.rows[0])
   } catch (error) {
-    console.error('Error fetching account:', error)
+    console.error('Error fetching:', error)
     return res.status(500).json({ error: 'Internal server error' })
   }
 })

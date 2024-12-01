@@ -1,61 +1,109 @@
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
 import router from '@/router'
+import type { Account } from '@/stores/accountStore'
 
 export default defineComponent({
   name: 'Login-Screen',
   setup() {
-    onMounted(() => {
-      userStore.clearSelectedUser()
-      forceRerender()
-    })
     const username = ref('')
     const password = ref('')
     const error = ref('')
     const userStore = useUserStore()
-
     const uniqueKey = ref(0)
+    const account = ref<Account>()
+    const isSubmitting = ref(false)
+
+    // Validation states
+    const usernameError = ref('')
+    const passwordError = ref('')
+
+    onMounted(() => {
+      userStore.clearSelectedUser()
+      forceRerender()
+    })
+
     const forceRerender = () => {
       uniqueKey.value++
     }
 
-    const login = async () => {
-      try {
-        //assuming successful login logic
-        userStore.setAdminStatus(true) // Set admin status
-        console.log('setting admin status to true')
-        console.log('username', username.value)
-        console.log('password', password.value)
+    const validateForm = (): boolean => {
+      let isValid = true
 
+      // Reset errors
+      usernameError.value = ''
+      passwordError.value = ''
+
+      // Username validation
+      if (!username.value) {
+        usernameError.value = 'Username is required'
+        isValid = false
+      } else if (username.value.length < 3) {
+        usernameError.value = 'Username must be at least 3 characters'
+        isValid = false
+      }
+
+      // Password validation
+      if (!password.value) {
+        passwordError.value = 'Password is required'
+        isValid = false
+      }
+
+      return isValid
+    }
+
+    const login = async () => {
+      if (!validateForm()) {
+        return
+      }
+
+      try {
+        isSubmitting.value = true
+        error.value = ''
+        const response = await axios.get<Account>(
+          'http://localhost:3001/api/accounts/username_ilstu',
+          {
+            params: {
+              username_ilstu: username.value
+            }
+          }
+        )
+        account.value = response.data
+        if (password.value !== account.value.password) {
+          error.value = 'Invalid username or password'
+          return
+        }
+
+        // If we get here, login was successful
+        userStore.setAdminStatus(true)
         router.push('/home')
       } catch (err) {
-        error.value = 'Invalid username or password.'
+        error.value = 'Invalid username or password'
         console.error('Login error:', err)
+      } finally {
+        isSubmitting.value = false
       }
     }
 
-    //const login = async () => {
+    const usernameRules = computed(() => [
+      (v: string) => !!v || 'Username is required'
+      // (v: string) => v.length >= 3 || 'Username must be at least 3 characters'
+    ])
 
-    // try {
-    //   const response = await axios.post('/api/user', {
-    //     username: username.value,
-    //     password: password.value
-    //   })
+    const passwordRules = computed(() => [(v: string) => !!v || 'Password is required'])
 
-    //   const { token } = response.data
-    //   //save the JWT token (not sure if localStorage is SAFE per se)
-    //   localStorage.setItem('jwt', token)
-    //   // redirect user after login
-    //   window.location.href = '/home'
-    // } catch (err) {
-    //   error.value = 'Invalid username or password.'
-    //   console.error('Login error:', err)
-    // }
-    // }
-
-    return { username, password, error, login, uniqueKey }
+    return {
+      username,
+      password,
+      error,
+      login,
+      uniqueKey,
+      usernameRules,
+      passwordRules,
+      isSubmitting
+    }
   }
 })
 </script>
@@ -72,7 +120,14 @@ export default defineComponent({
       <v-col>
         <v-row class="row-styles">
           <div class="long-input">
-            <v-text-field v-model="username" label="Username" outlined></v-text-field>
+            <v-text-field
+              v-model="username"
+              label="Username"
+              outlined
+              :rules="usernameRules"
+              :disabled="isSubmitting"
+              @keyup.enter="login"
+            ></v-text-field>
           </div>
         </v-row>
         <v-row class="row-styles">
@@ -82,10 +137,13 @@ export default defineComponent({
               label="Password"
               type="password"
               outlined
+              :rules="passwordRules"
+              :disabled="isSubmitting"
+              @keyup.enter="login"
             ></v-text-field>
           </div>
         </v-row>
-        <v-row v-if="error" class="row-styles">
+        <v-row v-if="error" class="row-error">
           <span class="error">{{ error }}</span>
         </v-row>
         <v-row class="row-styles">
@@ -96,7 +154,9 @@ export default defineComponent({
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="login">Login</v-btn>
+            <v-btn class="btn" @click="login" :loading="isSubmitting" :disabled="isSubmitting">
+              Login
+            </v-btn>
           </div>
         </v-row>
       </v-col>
@@ -139,7 +199,13 @@ export default defineComponent({
   margin-top: -2vh;
 }
 .error {
+  font-size: x-small;
   color: red;
   text-align: center;
+  margin-top: -5vh;
+}
+.row-error {
+  justify-content: center;
+  align-items: center;
 }
 </style>
