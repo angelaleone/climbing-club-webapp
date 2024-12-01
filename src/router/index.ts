@@ -14,6 +14,7 @@ import RideSheetInitialView from '@/views/member/RideSheetInitialView.vue'
 import DriverInfoView from '@/views/member/DriverInfoView.vue'
 import RiderInfoView from '@/views/member/RiderInfoView.vue'
 import RideSheetView from '@/views/member/RideSheetView.vue'
+import ConfirmationScreen from '@/views/member/ConfirmationScreen.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -96,6 +97,11 @@ const router = createRouter({
       path: '/ridesheet',
       name: 'rideSheet',
       component: RideSheetView
+    },
+    {
+      path: '/confirm',
+      name: 'confirmationScreen',
+      component: ConfirmationScreen
     }
   ]
 })

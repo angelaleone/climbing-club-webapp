@@ -83,7 +83,7 @@ export default defineComponent({
     const password = ref('')
 
     const submit = async () => {
-      //router.push() to confirmation screen
+      router.push('/confirm')
       try {
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,

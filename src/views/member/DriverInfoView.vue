@@ -96,6 +96,7 @@ export default defineComponent({
       } catch (error) {
         console.error('Error creating account:', error)
       }
+      router.push('/confirm')
     }
 
     return {

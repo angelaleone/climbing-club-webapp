@@ -29,9 +29,14 @@ export default defineComponent({
       //set store variables
     }
 
+    function seeRideSheet() {
+      router.push('/ridesheet')
+    }
+
     return {
       navigateToDriverInfo,
-      navigateToRiderInfo
+      navigateToRiderInfo,
+      seeRideSheet
     }
   }
 })
@@ -70,7 +75,9 @@ export default defineComponent({
           <div class="icon-container">
             <span>OR</span>
           </div>
-          <div class="icon-container"><v-btn variant="plain">see ride sheet</v-btn></div>
+          <div class="icon-container">
+            <v-btn variant="plain" @click="seeRideSheet()">see ride sheet</v-btn>
+          </div>
         </v-col>
       </v-row>
     </v-col>
