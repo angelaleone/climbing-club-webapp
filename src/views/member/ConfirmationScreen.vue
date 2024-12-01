@@ -5,7 +5,7 @@
       <h2>Thank you for your submission!</h2>
       <div class="ride-details">
         <p>Your ride: Angela Leone</p>
-        <p>(999) 999-9999</p>
+        <p>(555)555-5555</p>
         <p>ajleon5@ilstu.edu</p>
       </div>
       <v-divider class="divider"></v-divider>

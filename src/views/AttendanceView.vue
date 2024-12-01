@@ -36,7 +36,7 @@ export default defineComponent({
         variant="outlined"
         prepend-icon="mdi-plus"
         @click="$router.push('/createattendancesheet')"
-        >Create</v-btn
+        >Create and start</v-btn
       >
     </v-row>
     <v-col>

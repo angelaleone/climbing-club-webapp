@@ -123,9 +123,9 @@ export default defineComponent({
 .row-container {
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 95%;
   padding-left: 25vh;
-  padding-top: 5vh;
+  padding-top: -8vh;
   padding-right: 25vh;
   height: 100%;
   margin: 0;
@@ -149,7 +149,7 @@ export default defineComponent({
   width: 30vh;
   height: auto;
   margin: 1vh;
-  margin-bottom: 2vh;
+  margin-bottom: 4vh;
 }
 .subtitle {
   height: 10vh;
