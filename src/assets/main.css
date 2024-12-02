@@ -10,7 +10,7 @@
 a,
 /* .v-btn--variant-elevated,
 .v-btn--variant-flat {
-  color: rgba(166, 205, 172, 0.87) !important;
+  color: '#E6B89C' !important;
 } */
 .green {
   text-decoration: none;
@@ -21,7 +21,7 @@ a,
 
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    background-color: transparent;
   }
 }
 

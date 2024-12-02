@@ -53,6 +53,9 @@ const deleterideEvent = () => {
   margin: 1vh;
   width: 110vh;
   height: 13vh;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #c5d1d8;
 }
 .edit-icon {
   margin-left: 8px;

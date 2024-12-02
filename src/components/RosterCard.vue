@@ -1,19 +1,21 @@
 <template>
-  <v-card class="member-card">
-    <v-card-title>
-      <v-row class="title-row">
-        <div>{{ account.first_name }} {{ account.last_name }}</div>
-        <v-spacer></v-spacer>
-        <v-icon size="x-small" @click="editAccount" class="edit-icon">mdi-pencil</v-icon>
-        <v-icon size="x-small" @click="deleteAccount" class="delete-icon">mdi-delete</v-icon>
-      </v-row>
-    </v-card-title>
-    <v-card-body>
-      <v-col>
-        <div>Phone: {{ account.phone }}</div>
-        <div>{{ account.ilstu_email }}</div>
-      </v-col>
-    </v-card-body>
+  <v-card class="member-card elevation-3">
+    <div class="container">
+      <v-card-title>
+        <v-row class="title-row">
+          <div>{{ account.first_name }} {{ account.last_name }}</div>
+          <v-spacer></v-spacer>
+          <v-icon size="x-small" @click="editAccount" class="edit-icon">mdi-pencil</v-icon>
+          <v-icon size="x-small" @click="deleteAccount" class="delete-icon">mdi-delete</v-icon>
+        </v-row>
+      </v-card-title>
+      <v-card-body>
+        <v-col>
+          <div>Phone: {{ account.phone }}</div>
+          <div>{{ account.ilstu_email }}</div>
+        </v-col>
+      </v-card-body>
+    </div>
   </v-card>
 </template>
 
@@ -37,6 +39,9 @@ const deleteAccount = () => {
   margin: 1vh;
   width: 90%;
   height: 13vh;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #c5d1d8;
 }
 .edit-icon {
   margin-left: 8px;
@@ -54,6 +59,11 @@ const deleteAccount = () => {
   color: #1976d2;
 }
 .title-row {
-  padding: 0.5vh;
+  padding: 0.25vh;
+}
+.container {
+  margin-left: 1vh;
+  margin-right: 1vh;
+  margin-top: 0.5vh;
 }
 </style>

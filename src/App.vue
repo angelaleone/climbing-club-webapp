@@ -7,8 +7,8 @@ const isAdmin = computed(() => userStore.isAdmin)
 </script>
 
 <template>
-  <v-app>
-    <v-app-bar app v-if="isAdmin">
+  <v-app class="background">
+    <v-app-bar app v-if="isAdmin" color="#eeeeee">
       <!-- Use the computed property here -->
       <v-toolbar-title>
         <v-btn text="true">
@@ -40,7 +40,7 @@ header {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: #4281a4;
 }
 
 nav a.router-link-exact-active:hover {
@@ -50,10 +50,17 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solid #fff0;
 }
 
 nav a:first-of-type {
   border: 0;
+}
+.background {
+  background-color: #fff0;
+  min-height: 100vh;
+}
+.navbar-color {
+  color: #eacebc;
 }
 </style>

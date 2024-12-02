@@ -30,7 +30,7 @@ export default defineComponent({
 <template>
   <div class="home">
     <v-row class="welcome">
-      <h1>Welcome to RockRoster</h1>
+      <h1 class="welcome-text">Welcome to RockRoster</h1>
     </v-row>
     <v-row class="home-row">
       <div class="card-container">
@@ -63,7 +63,7 @@ export default defineComponent({
         </v-card>
       </div>
       <div class="card-container">
-        <v-card class="card">
+        <v-card class="card elevation-6">
           <v-col>
             <div class="card-title">
               <span>Take Attendance</span>
@@ -114,9 +114,10 @@ export default defineComponent({
   margin-left: 1vh;
   font-size: x-large;
   justify-self: center;
+  color: #f8f6f0;
 }
 .card-icon {
-  color: #4a4a4a;
+  color: #e6b89c;
 }
 .add-btn {
   position: absolute;
@@ -127,8 +128,12 @@ export default defineComponent({
   justify-content: center;
   padding-top: 10vh;
   padding-bottom: 8vh;
-  letter-spacing: 4.5px;
+  letter-spacing: 3.5px;
   font-size: large;
   font-weight: bold;
+}
+.welcome-text {
+  color: #212121;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>
