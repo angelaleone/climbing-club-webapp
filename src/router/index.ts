@@ -118,15 +118,15 @@ router.beforeEach((to, from, next) => {
   // }
   const sessionStore = useSessionStore()
 
-  if (to.meta.requiresAdmin && !sessionStore.isAdmin) {
-    next({ name: 'unauthorized' })
-    return
-  }
+  // if (to.meta.requiresAdmin && !sessionStore.isAdmin) {
+  //   next({ name: 'unauthorized' })
+  //   return
+  // }
 
-  if (to.meta.requiresAuth && !sessionStore.isAuthenticated) {
-    next({ name: 'login' })
-    return
-  }
+  // if (to.meta.requiresAuth && !sessionStore.isAuthenticated) {
+  //   next({ name: 'login' })
+  //   return
+  // }
 
   next()
 })
