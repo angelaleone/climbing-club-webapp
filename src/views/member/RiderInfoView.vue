@@ -89,24 +89,7 @@ export default defineComponent({
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
-    const submit = async () => {
-      try {
-        loading.value = true
-        const response = await axios.post('http://localhost:3001/api/accounts/post', {
-          admin_user: false,
-          first_name: firstName.value,
-          last_name: lastName.value,
-          phone: phone.value,
-          ilstu_email: ilstuEmail.value,
-          username_ilstu: ilstuEmail.value.split('@')[0],
-          password: password.value
-        })
-        loading.value = false
-        console.log('Account created:', response.data)
-      } catch (error) {
-        loading.value = false
-        console.error('Error creating account:', error)
-      }
+    function submit() {
       router.push('/ridesheet')
     }
 
