@@ -7,7 +7,7 @@
         <v-icon size="x-small" @click="deleteattendanceSheet" class="delete-icon"
           >mdi-delete</v-icon
         >
-        <v-icon size="x-small" @click="editattendanceSheet" class="edit-icon">mdi-download</v-icon>
+        <v-icon size="x-small" @click="downloadCSV" class="edit-icon">mdi-download</v-icon>
       </v-row>
     </v-card-title>
     <v-card-body>
@@ -21,9 +21,30 @@
 <script setup lang="ts">
 import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
 import { useUserStore } from '@/stores/userStore'
+import { ref } from 'vue'
 
 const props = defineProps<{ attendanceSheet: AttendanceSheet }>()
 const attendanceSheet = props.attendanceSheet
+const attendanceDate = attendanceSheet.date
+const attendeesULIDs = attendanceSheet.attendees
+const attendeesEmails = ref()
+if (attendeesULIDs) {
+  attendeesEmails.value = attendeesULIDs.map((ulid: string) => `${ulid}@ilstu.edu`)
+}
+console.log('emails ', attendeesEmails.value)
+
+const downloadCSV = () => {
+  console.log('inside the function')
+  const csvContent = 'data:text/csv;charset=utf-8,' + 'Emails\n' + attendeesEmails.value.join('\n')
+
+  const encodedUri = encodeURI(csvContent)
+  const link = document.createElement('a')
+  link.setAttribute('href', encodedUri)
+  link.setAttribute('download', 'attendance_sheet' + attendanceDate + '.csv')
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
 
 const editattendanceSheet = () => {
   console.log('Edit sheet', attendanceSheet)
