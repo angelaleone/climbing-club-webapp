@@ -4,9 +4,9 @@
       <v-row class="title-row">
         Attendance For {{ attendanceSheet.date }}
         <v-spacer></v-spacer>
-        <v-icon size="x-small" @click="deleteattendanceSheet" class="delete-icon"
+        <!-- <v-icon size="x-small" @click="deleteattendanceSheet" class="delete-icon"
           >mdi-delete</v-icon
-        >
+        > -->
         <v-icon size="x-small" @click="downloadCSV" class="edit-icon">mdi-download</v-icon>
       </v-row>
     </v-card-title>

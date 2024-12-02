@@ -112,6 +112,10 @@ router.beforeEach((to, from, next) => {
     userStore.clearSelectedUser()
     console.log('user store reset on login')
   }
+  // if (from.path === '/ridesheetselection') {
+  //   console.log('making it in')
+  //   next({ name: 'login' })
+  // }
   const sessionStore = useSessionStore()
 
   if (to.meta.requiresAdmin && !sessionStore.isAdmin) {
