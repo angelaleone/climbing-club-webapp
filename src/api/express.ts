@@ -134,14 +134,16 @@ app.post('/api/attendance/post', async (req: any, res: any) => {
 })
 
 //UPDATE attendance sheet
-app.put('/api/attendance/:id', async (req: any, res: any) => {
-  const id = req.params.id
-  const { accountIDs } = req.body
+app.put('/api/attendance/:attendanceID', async (req: any, res: any) => {
+  const attendancesheetid = req.params.attendanceID
+  const { attendees } = req.body
+  console.log('attendanceID:', req.params.attendanceID)
+  console.log('attendees:', req.body.attendees)
 
   try {
     const updatedSheet = await pool.query(
-      'UPDATE "AttendanceSheet" SET attendees = $1 WHERE id = $2 RETURNING *',
-      [accountIDs, id]
+      'UPDATE "AttendanceSheet" SET attendees = $1 WHERE attendancesheetid = $2 RETURNING *',
+      [attendees, attendancesheetid]
     )
 
     if (updatedSheet.rows.length === 0) {
