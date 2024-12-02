@@ -17,6 +17,7 @@ export default defineComponent({
     const account = ref<Account>()
     const isSubmitting = ref(false)
     const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(false)
 
     // Validation states
     const usernameError = ref('')
