@@ -68,7 +68,7 @@ export default defineComponent({
     const phone = ref('')
     const ilstuEmail = ref('')
     const password = ref('')
-    const success = ref(true)
+    const success = ref(false)
     const loading = ref(false)
     const errorMsg = ref(false)
 
