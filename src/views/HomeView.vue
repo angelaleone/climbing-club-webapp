@@ -34,12 +34,15 @@ export default defineComponent({
     </v-row>
     <v-row class="home-row">
       <div class="card-container">
-        <v-card class="card">
+        <v-card class="card elevation-6">
           <v-col>
             <div class="card-title">
-              <!-- <v-icon large class="card-icon">mdi-account</v-icon> -->
               <span>Register Accounts</span>
             </div>
+            <div class="card-icon">
+              <v-icon large>mdi-account-group</v-icon>
+            </div>
+
             <v-row>
               <div class="add-btn">
                 <v-btn icon="mdi-plus" @click="register()"></v-btn>
@@ -49,10 +52,13 @@ export default defineComponent({
         </v-card>
       </div>
       <div class="card-container">
-        <v-card class="card">
+        <v-card class="card elevation-6">
           <v-col>
             <div class="card-title">
               <span>Create Ride Event</span>
+            </div>
+            <div class="card-icon">
+              <v-icon large>mdi-car-hatchback</v-icon>
             </div>
             <v-row>
               <div class="add-btn">
@@ -67,6 +73,9 @@ export default defineComponent({
           <v-col>
             <div class="card-title">
               <span>Take Attendance</span>
+            </div>
+            <div class="card-icon">
+              <v-icon large>mdi-account-check</v-icon>
             </div>
             <v-row>
               <div class="add-btn">
@@ -96,6 +105,7 @@ export default defineComponent({
 .card-container {
   display: flex;
   justify-content: center;
+  flex-direction: row;
 }
 .card {
   width: 40vh;
@@ -105,19 +115,23 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* Distributes items vertically */
 }
+
 .card-title {
-  margin: auto;
-  padding-top: 7.5vh;
-  padding-left: 7vh;
-  margin-left: 1vh;
-  font-size: x-large;
-  justify-self: center;
+  margin-top: 5vh;
+  font-size: 1.5rem; /* Adjust font size for text */
   color: #f8f6f0;
+  text-align: center; /* Center-align text */
 }
+
 .card-icon {
-  color: #e6b89c;
+  color: #fffff0;
+  font-size: 2rem; /* Make the icon larger */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Add spacing above the icon */
 }
 .add-btn {
   position: absolute;

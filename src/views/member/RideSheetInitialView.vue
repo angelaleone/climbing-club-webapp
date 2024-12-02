@@ -6,6 +6,7 @@ import { useAttendanceStore } from '@/stores/attendanceStore'
 import { useRideEventStore } from '@/stores/rideEventStore'
 import { format } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'RideSheetInitialView',
@@ -24,6 +25,9 @@ export default defineComponent({
     const eventName = currentRideEvent.name
     const eventLocation = currentRideEvent.location
     const eventDate = currentRideEvent.date
+
+    const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(false)
 
     const utcDate = new Date(eventDate)
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')

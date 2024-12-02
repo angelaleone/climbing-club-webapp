@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
 import router from '@/router'
 import type { Account } from '@/stores/accountStore'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'Login-Screen',
@@ -15,6 +16,7 @@ export default defineComponent({
     const uniqueKey = ref(0)
     const account = ref<Account>()
     const isSubmitting = ref(false)
+    const sessionStore = useSessionStore()
 
     // Validation states
     const usernameError = ref('')
@@ -71,12 +73,17 @@ export default defineComponent({
           }
         )
         account.value = response.data
+        sessionStore.setUser({
+          email: account.value.ilstu_email,
+          isAdmin: true
+        })
         if (password.value !== account.value.password) {
           error.value = 'Invalid username or password'
           return
         }
-
-        // If we get here, login was successful
+        // if (account.value.admin_user == 'false') {
+        //   //  non admin logic TODO
+        // }
         userStore.setAdminStatus(true)
         router.push('/home')
       } catch (err) {

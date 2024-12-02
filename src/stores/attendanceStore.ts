@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
 
 const initial: AttendanceSheet = {
-  attendanceSheetID: 0,
+  attendancesheetid: 6,
   adminID: 1,
   attendees: [],
   date: ''
@@ -28,7 +28,7 @@ export const useAttendanceStore = defineStore('account', {
     }
   },
   getters: {
-    getAttendanceID: (state) => state.selectedAttendanceSheet.attendanceSheetID,
+    getAttendanceID: (state) => state.selectedAttendanceSheet.attendancesheetid,
     getCurrentAttendanceSheet: (state) => state.selectedAttendanceSheet
   }
 })

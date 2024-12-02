@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import router from '@/router'
 import { useUserStore } from '@/stores/userStore'
 import { useAttendanceStore } from '@/stores/attendanceStore'
 import axios from 'axios'
+import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'AttendanceIntake',
@@ -21,14 +23,17 @@ export default defineComponent({
     const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
+    const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(false)
 
     //using attendance store
     const attendanceStore = useAttendanceStore()
     const attendanceID = attendanceStore.getAttendanceID
+    console.log('Attendance id in store', attendanceID)
     const currentAttendanceSheet = attendanceStore.getCurrentAttendanceSheet
     const attendanceName = currentAttendanceSheet.date
     //this only works if we update the selected attendence sheet in the attendance sheet store in the create attendance screen
-    const attendees = ref([])
+    const attendees = ref<string[]>([])
 
     function clearAndAdd() {
       showThanks.value = true
@@ -39,17 +44,28 @@ export default defineComponent({
       }, 1500)
       input.value = ''
     }
+    const updatedAttendanceSheet = ref<AttendanceSheet>({
+      adminID: 0,
+      attendees: [],
+      date: ''
+    })
 
     const exitAttendanceMode = async () => {
       loading.value = true
       //this put doesnt really work
       try {
-        const response = await axios.put(`/api/attendance/${attendanceID}`, {
+        console.log('Sending request with:', {
+          attendanceID,
           attendees: attendees.value
         })
+        const response = await axios.put(`http://localhost:3001/api/attendance/${attendanceID}`, {
+          attendees: attendees.value
+        })
+        updatedAttendanceSheet.value = response.data
+        attendanceStore.setSelectedAttendanceSheet(updatedAttendanceSheet.value)
         loading.value = false
         router.push('/confirmadmin')
-        console.log('made it to the exit screen')
+        console.log('updated attendance sheet', updatedAttendanceSheet.value)
         return response.data
       } catch (error) {
         router.push('/confirmadmin')
