@@ -12,7 +12,7 @@
     </v-card-title>
     <v-card-body>
       <v-col class="card-body">
-        <v-row><v-icon class="account-icon">mdi-account</v-icon> Admin: Jenna Germano</v-row>
+        <v-row><v-icon class="account-icon">mdi-account</v-icon> Admin: Angela Leone</v-row>
       </v-col>
     </v-card-body>
   </v-card>

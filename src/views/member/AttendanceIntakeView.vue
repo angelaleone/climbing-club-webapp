@@ -5,6 +5,7 @@ import { useUserStore } from '@/stores/userStore'
 import { useAttendanceStore } from '@/stores/attendanceStore'
 import axios from 'axios'
 import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'AttendanceIntake',
@@ -22,6 +23,8 @@ export default defineComponent({
     const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
+    const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(false)
 
     //using attendance store
     const attendanceStore = useAttendanceStore()

@@ -2,8 +2,10 @@
 import { computed, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from './stores/userStore'
+import { useSessionStore } from './stores/sessionStore'
 const userStore = useUserStore()
-const isAdmin = computed(() => userStore.isAdmin)
+const sessionStore = useSessionStore()
+const isAdmin = computed(() => sessionStore.isAdmin)
 </script>
 
 <template>

@@ -3,6 +3,7 @@ import { defineComponent, ref, onMounted } from 'vue'
 import axios from 'axios'
 import AttendanceSheetCard from '@/components/AttendanceSheetCard.vue'
 import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'Attendance-Sheets',
@@ -11,6 +12,8 @@ export default defineComponent({
   },
   setup() {
     const attendanceSheets = ref()
+    const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(true)
 
     const fetchAttendanceSheets = async () => {
       try {

@@ -15,6 +15,7 @@ import DriverInfoView from '@/views/member/DriverInfoView.vue'
 import RiderInfoView from '@/views/member/RiderInfoView.vue'
 import RideSheetView from '@/views/member/RideSheetView.vue'
 import ConfirmationScreen from '@/views/member/ConfirmationScreen.vue'
+import { useSessionStore } from '@/stores/sessionStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -111,6 +112,18 @@ router.beforeEach((to, from, next) => {
     userStore.clearSelectedUser()
     console.log('user store reset on login')
   }
+  const sessionStore = useSessionStore()
+
+  if (to.meta.requiresAdmin && !sessionStore.isAdmin) {
+    next({ name: 'unauthorized' })
+    return
+  }
+
+  if (to.meta.requiresAuth && !sessionStore.isAuthenticated) {
+    next({ name: 'login' })
+    return
+  }
+
   next()
 })
 
