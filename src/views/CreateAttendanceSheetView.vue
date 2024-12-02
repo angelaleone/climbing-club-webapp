@@ -89,7 +89,7 @@ export default defineComponent({
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="createAndNavigate()" :loading="loading">
+            <v-btn class="btn" rounded="xl" @click="createAndNavigate()" :loading="loading">
               create and start
             </v-btn>
           </div>
@@ -131,7 +131,7 @@ export default defineComponent({
 .btn {
   min-width: 10vh;
   margin-top: 2vh;
-  background-color: #ead2ac;
+  background-color: #e6b89c;
 }
 .btn-group-container {
   justify-content: center;

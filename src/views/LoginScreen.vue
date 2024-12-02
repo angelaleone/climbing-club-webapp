@@ -149,12 +149,18 @@ export default defineComponent({
         <v-row class="row-styles">
           <span class="register-text">
             Don't have an account?
-            <v-btn variant="text" size="small" @click="$router.push('/register')">register</v-btn>
+            <v-btn variant="plain" size="small" @click="$router.push('/register')">register</v-btn>
           </span>
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="login" :loading="isSubmitting" :disabled="isSubmitting">
+            <v-btn
+              class="btn colored-btn"
+              rounded="xl"
+              @click="login"
+              :loading="isSubmitting"
+              :disabled="isSubmitting"
+            >
               Login
             </v-btn>
           </div>
@@ -207,5 +213,8 @@ export default defineComponent({
 .row-error {
   justify-content: center;
   align-items: center;
+}
+.colored-btn {
+  background-color: #e6b89c;
 }
 </style>

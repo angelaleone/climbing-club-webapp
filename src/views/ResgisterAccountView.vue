@@ -36,10 +36,10 @@
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="cancel">cancel</v-btn>
+            <v-btn class="btn" @click="cancel" rounded="xl">cancel</v-btn>
           </div>
           <div>
-            <v-btn class="submit-btn btn" @click="submit">submit</v-btn>
+            <v-btn class="submit-btn btn" @click="submit" rounded="xl">submit</v-btn>
           </div>
         </v-row>
       </v-col>
@@ -129,6 +129,6 @@ export default defineComponent({
   padding-right: 2vh;
 }
 .submit-btn {
-  background-color: #ead2ac;
+  background-color: #e6b89c;
 }
 </style>

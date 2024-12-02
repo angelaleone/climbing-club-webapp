@@ -23,7 +23,7 @@
     <div class="content-container">
       <v-row class="row-container">
         <div class="card-div">
-          <v-card>
+          <v-card class="card-styles">
             <v-card-title> Driver: Angela Leone </v-card-title>
             <v-card-subtitle class="subtitle">
               <v-row>
@@ -187,5 +187,10 @@ export default defineComponent({
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+}
+.card-styles {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #c5d1d8;
 }
 </style>

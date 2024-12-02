@@ -118,13 +118,15 @@ export default defineComponent({
 .long-input {
   padding: 1vh;
   width: 80vh;
+  margin-left: 8vh;
 }
 .btn-group-container {
   justify-content: center;
 }
 .btn {
   min-width: 10vh;
-  margin: 5vh;
+  margin: 1vh;
+  margin-bottom: 3vh;
 }
 
 .title-row {
@@ -143,7 +145,7 @@ export default defineComponent({
   padding-right: 2vh;
 }
 .submit-btn {
-  background-color: #ead2ac;
+  background-color: #e6b89c;
 }
 .exit-btn {
   align-content: center;
