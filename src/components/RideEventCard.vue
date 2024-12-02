@@ -4,7 +4,7 @@
       <v-row class="title-row">
         <div>{{ rideEvent.name }}</div>
         <v-spacer></v-spacer>
-        <v-icon size="x-small" @click="deleterideEvent" class="delete-icon">mdi-delete</v-icon>
+        <!-- <v-icon size="x-small" @click="deleterideEvent" class="delete-icon">mdi-delete</v-icon> -->
         <v-icon size="x-small" @click="shareRideEvent" class="edit-icon">mdi-share</v-icon>
       </v-row>
     </v-card-title>
