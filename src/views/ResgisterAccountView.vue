@@ -39,9 +39,18 @@
             <v-btn class="btn" @click="cancel" rounded="xl">cancel</v-btn>
           </div>
           <div>
-            <v-btn class="submit-btn btn" @click="submit" rounded="xl">submit</v-btn>
+            <v-btn class="submit-btn btn" @click="submit" :loading="loading" rounded="xl"
+              >submit</v-btn
+            >
+          </div>
+          <div v-if="success" class="success">
+            <span>Account Created!</span>
+            <v-btn variant="plain" @click="routeToLogin()">go to login </v-btn>
           </div>
         </v-row>
+        <div v-if="errorMsg" class="error">
+          <span>Error creating account.</span>
+        </div>
       </v-col>
     </div>
   </div>
@@ -50,6 +59,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import axios from 'axios'
+import router from '@/router'
 
 export default defineComponent({
   name: 'RegisterAccount',
@@ -59,8 +69,12 @@ export default defineComponent({
     const phone = ref('')
     const ilstuEmail = ref('')
     const password = ref('')
+    const success = ref(false)
+    const loading = ref(false)
+    const errorMsg = ref(false)
 
     const submit = async () => {
+      loading.value = true
       try {
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,
@@ -72,13 +86,21 @@ export default defineComponent({
           password: password.value
         })
         console.log('Account created:', response.data)
+        loading.value = false
+        success.value = true
       } catch (error) {
         console.error('Error creating account:', error)
+        errorMsg.value = true
+        loading.value = false
       }
     }
 
     const cancel = () => {
       //clear all fields and navigate back
+    }
+
+    function routeToLogin() {
+      router.push('/')
     }
 
     return {
@@ -88,7 +110,11 @@ export default defineComponent({
       ilstuEmail,
       password,
       submit,
-      cancel
+      cancel,
+      success,
+      routeToLogin,
+      loading,
+      errorMsg
     }
   }
 })
@@ -130,5 +156,18 @@ export default defineComponent({
 }
 .submit-btn {
   background-color: #e6b89c;
+}
+.success {
+  justify-content: center;
+  align-items: center;
+  margin-left: -33vh;
+  margin-bottom: 3vh;
+  margin-top: -2vh;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
