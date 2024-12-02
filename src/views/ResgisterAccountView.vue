@@ -43,11 +43,10 @@
               >submit</v-btn
             >
           </div>
-          <div v-if="success" class="success">
-            <span>Account Created!</span>
-            <v-btn variant="plain" @click="routeToLogin()">go to login </v-btn>
-          </div>
         </v-row>
+        <div v-if="success" class="error">
+          <span>Account Created!</span>
+        </div>
         <div v-if="errorMsg" class="error">
           <span>Error creating account.</span>
         </div>
@@ -69,7 +68,7 @@ export default defineComponent({
     const phone = ref('')
     const ilstuEmail = ref('')
     const password = ref('')
-    const success = ref(false)
+    const success = ref(true)
     const loading = ref(false)
     const errorMsg = ref(false)
 

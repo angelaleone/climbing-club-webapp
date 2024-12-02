@@ -75,8 +75,9 @@ export default defineComponent({
           error.value = 'Invalid username or password'
           return
         }
-
-        // If we get here, login was successful
+        if (account.value.admin_user == 'false') {
+          //  non admin logic TODO
+        }
         userStore.setAdminStatus(true)
         router.push('/home')
       } catch (err) {
