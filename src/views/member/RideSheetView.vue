@@ -1,3 +1,4 @@
+<!-- this file was not finished functionally -->
 <template>
   <div>
     <div class="title-row">
@@ -83,16 +84,19 @@ export default defineComponent({
     const ilstuEmail = ref('')
     const password = ref('')
 
+    //using ride store
     const rideStore = useRideEventStore()
     const currentRideEvent = rideStore.getCurrentRideEvent
     const eventName = currentRideEvent.name
     const eventLocation = currentRideEvent.location
     const eventDate = currentRideEvent.date
 
+    //date conversion
     const utcDate = new Date(eventDate)
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
+    //should update carpool in db, but no api endpoint was created
     function submit() {
       router.push('/confirm')
     }

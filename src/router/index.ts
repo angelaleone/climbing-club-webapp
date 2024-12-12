@@ -31,14 +31,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    },
-    {
       path: '/roster',
       name: 'roster',
       component: RosterView
@@ -112,21 +104,11 @@ router.beforeEach((to, from, next) => {
     userStore.clearSelectedUser()
     console.log('user store reset on login')
   }
-  // if (from.path === '/ridesheetselection') {
-  //   console.log('making it in')
-  //   next({ name: 'login' })
-  // }
   const sessionStore = useSessionStore()
-
-  // if (to.meta.requiresAdmin && !sessionStore.isAdmin) {
-  //   next({ name: 'unauthorized' })
-  //   return
-  // }
-
-  // if (to.meta.requiresAuth && !sessionStore.isAuthenticated) {
-  //   next({ name: 'login' })
-  //   return
-  // }
+  if (from.path === '/ridesheetselection') {
+    sessionStore.setAdminStatus(true)
+    //this is for navigatability in order to access all the site's functions right now, the session management is not complete
+  }
 
   next()
 })

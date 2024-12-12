@@ -12,9 +12,11 @@ export default defineComponent({
   },
   setup() {
     const attendanceSheets = ref()
+    //using session store for navbar admin status accessability
     const sessionStore = useSessionStore()
     sessionStore.setAdminStatus(true)
 
+    //api call to get all attendance sheets
     const fetchAttendanceSheets = async () => {
       try {
         const response = await axios.get<AttendanceSheet[]>('http://localhost:3001/api/attendance')
@@ -24,6 +26,8 @@ export default defineComponent({
         console.error('Error fetching attendance sheets')
       }
     }
+
+    //call function on mounted hook
     onMounted(fetchAttendanceSheets)
 
     const attendance = {
@@ -32,8 +36,6 @@ export default defineComponent({
       accountIDs: [],
       date: '11/29/20224'
     }
-
-    // onMounted(fetchRideEvents)
 
     return {
       attendance,

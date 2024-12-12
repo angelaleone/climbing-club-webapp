@@ -1,11 +1,10 @@
-<!-- if we decide to compotmentalize this here is the file -->
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'CarpoolCard',
   onSetup() {
-    //there will be props here
+    //props should be passed for the individual carpool information from the carpool store
   }
 })
 </script>

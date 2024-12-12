@@ -95,7 +95,7 @@ export default defineComponent({
     }
 
     const cancel = () => {
-      //clear all fields and navigate back
+      router.push('/')
     }
 
     function routeToLogin() {

@@ -37,12 +37,14 @@ const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
 const rideStore = useRideEventStore()
 
+//the share functionality should copy a unique url to the user's clipboard
 const shareRideEvent = () => {
   console.log('share event', rideEvent)
   rideStore.setselectedRideEvent(rideEvent)
   router.push('/ridesheetselection')
 }
 
+//this api endpoint was never created
 const deleterideEvent = () => {
   console.log('Delete ride event', rideEvent)
 }

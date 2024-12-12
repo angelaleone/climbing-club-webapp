@@ -11,7 +11,7 @@ const isAdmin = computed(() => sessionStore.isAdmin)
 <template>
   <v-app class="background">
     <v-app-bar app v-if="isAdmin" color="#eeeeee">
-      <!-- Use the computed property here -->
+      <!-- Use the computed property here for navbar/Admin permissions -->
       <v-toolbar-title>
         <v-btn text="true">
           <RouterLink to="/home" exact>ClimbingClub RockRoster</RouterLink>

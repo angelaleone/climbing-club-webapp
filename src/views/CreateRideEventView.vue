@@ -13,6 +13,7 @@ export default defineComponent({
     const location = ref()
     const name = ref()
 
+    //created ride event with form information
     const createAndNavigate = async () => {
       loading.value = true
       try {

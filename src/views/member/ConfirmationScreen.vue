@@ -38,16 +38,19 @@ import { useUserStore } from '@/stores/userStore'
 export default defineComponent({
   name: 'ConfirmationScreen',
   setup() {
+    //using ride store and assigning values
     const rideStore = useRideEventStore()
     const currentRideEvent = rideStore.getCurrentRideEvent
     const eventName = currentRideEvent.name
     const eventLocation = currentRideEvent.location
     const eventDate = currentRideEvent.date
 
+    //date conversion
     const utcDate = new Date(eventDate)
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
+    //using user store and assigning values
     const userStore = useUserStore()
     const user = userStore.getCurrentUser
     const firtName = user.first_name
