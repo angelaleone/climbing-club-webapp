@@ -16,8 +16,6 @@ export default defineComponent({
     const uniqueKey = ref(0)
     const account = ref<Account>()
     const isSubmitting = ref(false)
-    const sessionStore = useSessionStore()
-    sessionStore.setAdminStatus(false)
 
     // Validation states
     const usernameError = ref('')
