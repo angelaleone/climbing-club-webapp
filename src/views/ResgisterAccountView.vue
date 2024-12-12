@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Title and Back Button -->
     <div class="title-row">
       <v-row>
         <div class="back-btn">
@@ -9,8 +10,10 @@
       </v-row>
     </div>
 
+    <!-- Content Container -->
     <div class="content-container">
       <v-col>
+        <!-- First and Last Name -->
         <v-row class="row-styles">
           <div class="name-input">
             <v-text-field v-model="firstName" label="First Name"></v-text-field>
@@ -19,21 +22,31 @@
             <v-text-field v-model="lastName" label="Last Name"></v-text-field>
           </div>
         </v-row>
+
+        <!-- Phone Number -->
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="phone" label="Phone Number"></v-text-field>
           </div>
         </v-row>
+
+        <!-- Email -->
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="ilstuEmail" label="ilstu email (@ilstu.edu)"></v-text-field>
+            <span v-if="ilstuEmailError" class="error">{{ ilstuEmailError }}</span>
           </div>
         </v-row>
+
+        <!-- Password -->
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="password" label="Password" type="password"></v-text-field>
+            <span v-if="passwordError" class="error">{{ passwordError }}</span>
           </div>
         </v-row>
+
+        <!-- Buttons -->
         <v-row class="btn-group-container">
           <div>
             <v-btn class="btn" @click="cancel">cancel</v-btn>
@@ -58,9 +71,39 @@ export default defineComponent({
     const lastName = ref('')
     const phone = ref('')
     const ilstuEmail = ref('')
+    const ilstuEmailError = ref('')
     const password = ref('')
+    const passwordError = ref('')
+
+    const validateEmail = () => {
+      const emailPattern = /@ilstu\.edu$/
+      if (!emailPattern.test(ilstuEmail.value)) {
+        ilstuEmailError.value = 'Email must end with @ilstu.edu.'
+        return false
+      } else {
+        ilstuEmailError.value = ''
+        return true
+      }
+    }
+
+    const validatePassword = () => {
+      if (password.value.length < 12) {
+        passwordError.value = 'Password must be at least 12 characters.'
+        return false
+      } else {
+        passwordError.value = ''
+        return true
+      }
+    }
 
     const submit = async () => {
+      const isEmailValid = validateEmail()
+      const isPasswordValid = validatePassword()
+
+      if (!isEmailValid || !isPasswordValid) {
+        return
+      }
+
       try {
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,
@@ -78,7 +121,13 @@ export default defineComponent({
     }
 
     const cancel = () => {
-      //clear all fields and navigate back
+      firstName.value = ''
+      lastName.value = ''
+      phone.value = ''
+      ilstuEmail.value = ''
+      password.value = ''
+      ilstuEmailError.value = ''
+      passwordError.value = ''
     }
 
     return {
@@ -86,7 +135,11 @@ export default defineComponent({
       lastName,
       phone,
       ilstuEmail,
+      ilstuEmailError,
       password,
+      passwordError,
+      validateEmail,
+      validatePassword,
       submit,
       cancel
     }
@@ -113,7 +166,6 @@ export default defineComponent({
   min-width: 10vh;
   margin: 5vh;
 }
-
 .title-row {
   display: flex;
   align-items: center;
@@ -130,5 +182,10 @@ export default defineComponent({
 }
 .submit-btn {
   background-color: #ead2ac;
+}
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.5em;
 }
 </style>
