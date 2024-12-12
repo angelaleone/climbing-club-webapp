@@ -17,9 +17,11 @@
         <v-row class="row-styles">
           <div class="name-input">
             <v-text-field v-model="firstName" label="First Name"></v-text-field>
+            <span v-if="firstNameError" class="error">{{ firstNameError }}</span>
           </div>
           <div class="name-input">
             <v-text-field v-model="lastName" label="Last Name"></v-text-field>
+            <span v-if="lastNameError" class="error">{{ lastNameError }}</span>
           </div>
         </v-row>
 
@@ -27,6 +29,7 @@
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="phone" label="Phone Number"></v-text-field>
+            <span v-if="phoneError" class="error">{{ phoneError }}</span>
           </div>
         </v-row>
 
@@ -71,9 +74,43 @@ export default defineComponent({
     const lastName = ref('')
     const phone = ref('')
     const ilstuEmail = ref('')
-    const ilstuEmailError = ref('')
     const password = ref('')
+
+    const firstNameError = ref('')
+    const lastNameError = ref('')
+    const phoneError = ref('')
+    const ilstuEmailError = ref('')
     const passwordError = ref('')
+
+    const validateFirstName = () => {
+      if (!firstName.value.trim()) {
+        firstNameError.value = 'First Name is required.'
+        return false
+      } else {
+        firstNameError.value = ''
+        return true
+      }
+    }
+
+    const validateLastName = () => {
+      if (!lastName.value.trim()) {
+        lastNameError.value = 'Last Name is required.'
+        return false
+      } else {
+        lastNameError.value = ''
+        return true
+      }
+    }
+
+    const validatePhone = () => {
+      if (!phone.value.trim()) {
+        phoneError.value = 'Phone Number is required.'
+        return false
+      } else {
+        phoneError.value = ''
+        return true
+      }
+    }
 
     const validateEmail = () => {
       const emailPattern = /@ilstu\.edu$/
@@ -97,10 +134,19 @@ export default defineComponent({
     }
 
     const submit = async () => {
+      const isFirstNameValid = validateFirstName()
+      const isLastNameValid = validateLastName()
+      const isPhoneValid = validatePhone()
       const isEmailValid = validateEmail()
       const isPasswordValid = validatePassword()
 
-      if (!isEmailValid || !isPasswordValid) {
+      if (
+        !isFirstNameValid ||
+        !isLastNameValid ||
+        !isPhoneValid ||
+        !isEmailValid ||
+        !isPasswordValid
+      ) {
         return
       }
 
@@ -126,6 +172,9 @@ export default defineComponent({
       phone.value = ''
       ilstuEmail.value = ''
       password.value = ''
+      firstNameError.value = ''
+      lastNameError.value = ''
+      phoneError.value = ''
       ilstuEmailError.value = ''
       passwordError.value = ''
     }
@@ -135,9 +184,15 @@ export default defineComponent({
       lastName,
       phone,
       ilstuEmail,
-      ilstuEmailError,
       password,
+      firstNameError,
+      lastNameError,
+      phoneError,
+      ilstuEmailError,
       passwordError,
+      validateFirstName,
+      validateLastName,
+      validatePhone,
       validateEmail,
       validatePassword,
       submit,
