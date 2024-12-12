@@ -21,6 +21,7 @@ export default defineComponent({
     const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
+    const inputError = ref('')
 
     //using attendance store
     const attendanceStore = useAttendanceStore()
@@ -30,7 +31,21 @@ export default defineComponent({
     //this only works if we update the selected attendence sheet in the attendance sheet store in the create attendance screen
     const attendees = ref([])
 
+    function validateInput() {
+      if (!input.value.trim()) {
+        inputError.value = 'ULID is required.'
+        return false
+      } else {
+        inputError.value = ''
+        return true
+      }
+    }
+
     function clearAndAdd() {
+      if (!validateInput()) {
+        return
+      }
+
       showThanks.value = true
       attendees.value.push(input.value)
       console.log('attendees list ', attendees.value)
@@ -62,6 +77,7 @@ export default defineComponent({
     return {
       clearAndAdd,
       input,
+      inputError,
       exitAttendanceMode,
       loading,
       showThanks,
@@ -80,6 +96,7 @@ export default defineComponent({
       <v-row class="row-styles">
         <div class="long-input">
           <v-text-field label="ULID" v-model="input"> </v-text-field>
+          <span v-if="inputError" class="error">{{ inputError }}</span>
         </div>
         <div>
           <v-btn
@@ -169,5 +186,11 @@ export default defineComponent({
 .show-thanks {
   bottom: 45vh;
   opacity: 1;
+}
+
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.5em;
 }
 </style>
