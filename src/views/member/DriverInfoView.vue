@@ -6,7 +6,6 @@
           <div class="back-btn">
             <v-btn icon="mdi-arrow-left" variant="text" @click="$router.go(-1)"></v-btn>
           </div>
-          <!-- this will be interpolated from store variables  -->
           <h1>{{ eventName }}</h1>
         </v-row>
         <v-row class="event-subtitle">
@@ -23,12 +22,11 @@
     <div class="content-container">
       <v-col>
         <v-row class="row-styles title-description">
-          <span class="text-h6">Ride Sheet Information (Driver) </span>
+          <span class="text-h6">Ride Sheet Information (Driver)</span>
         </v-row>
 
         <v-row class="row-styles">
           <div class="name-input">
-            <!-- the placeholders will all have interpolated values from userStore  -->
             <v-text-field variant="outlined" readonly placeholder="Angela"></v-text-field>
           </div>
           <div class="name-input">
@@ -51,14 +49,27 @@
         </v-row>
         <v-row class="row-styles">
           <div class="name-input">
-            <v-select :items="numbers" density="comfortable" label="Number of Seats"></v-select>
+            <v-select
+              v-model="selectedSeats"
+              :items="numbers"
+              density="comfortable"
+              label="Number of Seats"
+            ></v-select>
+            <span v-if="seatError" class="error">{{ seatError }}</span>
           </div>
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="submit-btn btn" rounded="xl" :loading="loading" @click="submit"
-              >submit</v-btn
-            >
+            <v-btn class="submit-btn btn" rounded="xl" :loading="loading" @click="submit">
+              submit
+            </v-btn>
+          </div>
+        </v-row>
+        <v-row class="btn-group-container">
+          <div>
+            <v-btn variant="plain" density="compact" size="x-small" text
+              >This is not my information
+            </v-btn>
           </div>
         </v-row>
       </v-col>
@@ -83,6 +94,8 @@ export default defineComponent({
     const ilstuEmail = ref('')
     const password = ref('')
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const selectedSeats = ref<number | null>(null)
+    const seatError = ref('')
     const loading = ref(false)
 
     const rideStore = useRideEventStore()
@@ -95,7 +108,21 @@ export default defineComponent({
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
+    const validateSeats = () => {
+      if (!selectedSeats.value) {
+        seatError.value = 'Please select the number of seats.'
+        return false
+      } else {
+        seatError.value = ''
+        return true
+      }
+    }
+
     const submit = async () => {
+      if (!validateSeats()) {
+        return
+      }
+
       try {
         loading.value = true
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
@@ -125,6 +152,8 @@ export default defineComponent({
       submit,
       loading,
       numbers,
+      selectedSeats,
+      seatError,
       eventName,
       eventLocation,
       formattedDate
@@ -179,5 +208,10 @@ export default defineComponent({
 }
 .title-description {
   padding-bottom: 2vh;
+}
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.5em;
 }
 </style>

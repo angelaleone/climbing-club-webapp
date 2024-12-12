@@ -57,6 +57,13 @@
             >
           </div>
         </v-row>
+        <v-row class="btn-group-container">
+          <div>
+            <v-btn variant="plain" density="compact" size="x-small" text
+              >This is not my information
+            </v-btn>
+          </div>
+        </v-row>
       </v-col>
     </div>
   </div>
