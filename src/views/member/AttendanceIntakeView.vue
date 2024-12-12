@@ -16,13 +16,15 @@ export default defineComponent({
       forceRerender()
     })
     const uniqueKey = ref(0)
+    //force rerender updates DOM, implementing visual changes
     const forceRerender = () => {
       uniqueKey.value++
     }
-
     const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
+
+    //using session store
     const sessionStore = useSessionStore()
     sessionStore.setAdminStatus(false)
 
@@ -32,7 +34,6 @@ export default defineComponent({
     console.log('Attendance id in store', attendanceID)
     const currentAttendanceSheet = attendanceStore.getCurrentAttendanceSheet
     const attendanceName = currentAttendanceSheet.date
-    //this only works if we update the selected attendence sheet in the attendance sheet store in the create attendance screen
     const attendees = ref<string[]>([])
 
     function clearAndAdd() {
@@ -44,6 +45,7 @@ export default defineComponent({
       }, 1500)
       input.value = ''
     }
+
     const updatedAttendanceSheet = ref<AttendanceSheet>({
       adminID: 0,
       attendees: [],
@@ -52,7 +54,7 @@ export default defineComponent({
 
     const exitAttendanceMode = async () => {
       loading.value = true
-      //this put doesnt really work
+
       try {
         console.log('Sending request with:', {
           attendanceID,

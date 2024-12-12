@@ -1,5 +1,5 @@
 @import './base.css';
-
+/*these styles were imported by default upon the creation of the project, but they weren't what i wanted to use */
 #app {
   /* max-width: 1280px;
   margin: 0 auto;

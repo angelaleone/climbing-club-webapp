@@ -37,6 +37,7 @@ export default defineComponent({
       }
     }
 
+    //implementing a login with JWT was very difficult in typescript and broke all of my dependencies so i rolled it back
     //const login = async () => {
 
     // try {
@@ -44,7 +45,6 @@ export default defineComponent({
     //     username: username.value,
     //     password: password.value
     //   })
-
     //   const { token } = response.data
     //   //save the JWT token (not sure if localStorage is SAFE per se)
     //   localStorage.setItem('jwt', token)
@@ -89,12 +89,7 @@ export default defineComponent({
         <v-row v-if="error" class="row-styles">
           <span class="error">{{ error }}</span>
         </v-row>
-        <v-row class="row-styles">
-          <!-- <span class="register-text">
-            Don't have an account?
-            <v-btn variant="text" size="small" @click="$router.push('/register')">register</v-btn>
-          </span> -->
-        </v-row>
+        <v-row class="row-styles"> </v-row>
         <v-row class="btn-group-container">
           <div>
             <v-btn class="btn" @click="login">Confirm</v-btn>

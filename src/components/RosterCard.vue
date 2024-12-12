@@ -25,6 +25,7 @@ import type { Account } from '@/stores/accountStore'
 const props = defineProps<{ account: Account }>()
 const account = props.account
 
+//these api endpoints were never developed
 const editAccount = () => {
   console.log('Edit account', account)
 }

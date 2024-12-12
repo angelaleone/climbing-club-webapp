@@ -37,6 +37,7 @@ export default defineComponent({
       date: ''
     })
 
+    //creating an attendance sheet with form information, adminID should be passed dynamically but for now is 1
     const createAndNavigate = async () => {
       loading.value = true
       formatDate()

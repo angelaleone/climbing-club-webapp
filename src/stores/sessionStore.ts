@@ -1,8 +1,8 @@
-// stores/session.ts
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { UserSession } from '@/api/types/UserSession'
 
+//the session store is not implemented completely, the current implementation is for the navbar/Admin accessability ONLY
 export const useSessionStore = defineStore('session', () => {
   const user = ref<UserSession | null>(null)
 
@@ -20,7 +20,6 @@ export const useSessionStore = defineStore('session', () => {
       }
     }
   }
-
   function setUser(sessionData: UserSession) {
     user.value = sessionData
     sessionStorage.setItem('user', JSON.stringify(sessionData))
