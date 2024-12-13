@@ -15,6 +15,7 @@ import DriverInfoView from '@/views/member/DriverInfoView.vue'
 import RiderInfoView from '@/views/member/RiderInfoView.vue'
 import RideSheetView from '@/views/member/RideSheetView.vue'
 import ConfirmationScreen from '@/views/member/ConfirmationScreen.vue'
+import { useSessionStore } from '@/stores/sessionStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,14 +29,6 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
     },
     {
       path: '/roster',
@@ -111,6 +104,12 @@ router.beforeEach((to, from, next) => {
     userStore.clearSelectedUser()
     console.log('user store reset on login')
   }
+  const sessionStore = useSessionStore()
+  if (from.path === '/ridesheetselection') {
+    sessionStore.setAdminStatus(true)
+    //this is for navigatability in order to access all the site's functions right now, the session management is not complete
+  }
+
   next()
 })
 

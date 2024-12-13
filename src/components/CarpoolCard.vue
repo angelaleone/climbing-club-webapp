@@ -1,16 +1,15 @@
-<!-- if we decide to compotmentalize this here is the file -->
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'CarpoolCard',
   onSetup() {
-    //there will be props here
+    //props should be passed for the individual carpool information from the carpool store
   }
 })
 </script>
 <template>
-  <v-card>
+  <v-card class="card-styles">
     <v-card-title> Driver: Angela Leone </v-card-title>
     <v-card-subtitle class="subtitle">
       <v-row>
@@ -69,5 +68,10 @@ export default defineComponent({
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+}
+.card-styles {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #c5d1d8;
 }
 </style>

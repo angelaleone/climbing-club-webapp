@@ -12,6 +12,7 @@ export default defineComponent({
   setup() {
     const accounts = ref<Account[]>([])
 
+    //fetch all accounts
     const fetchAccounts = async () => {
       try {
         const response = await axios.get<Account[]>('http://localhost:3001/api/accounts')
@@ -21,8 +22,10 @@ export default defineComponent({
         console.error('Error fetching accounts:')
       }
     }
+    //creating date for csv download file name
     const today = new Date()
     const formattedDate = today.toISOString().slice(0, 10) // yyyy-mm-dd
+    //download a csv of the roster
     const downloadCSV = () => {
       const csvContent =
         'data:text/csv;charset=utf-8,' +
@@ -43,6 +46,7 @@ export default defineComponent({
       document.body.removeChild(link)
     }
 
+    //call function to fetch accounts on mounted hook
     onMounted(fetchAccounts)
 
     return {

@@ -1,3 +1,4 @@
+//Express API Endpoints
 import express from 'express'
 import pool from './connection'
 import cors from 'cors'
@@ -25,7 +26,7 @@ app.get('/api/accounts', async (req, res) => {
   }
 })
 
-//GET accounts by id
+//GET accounts by id (this interferes with get accounts by ULID)
 // app.get('/api/accounts/:id', async (req, res: any) => {
 //   const { id } = req.params
 
@@ -118,8 +119,8 @@ app.get('/api/attendance/:id', async (req, res: any) => {
 // POST attendance sheet
 app.post('/api/attendance/post', async (req: any, res: any) => {
   const { adminID, attendees, date }: AttendanceSheet = req.body
-  log('Request: ', attendees)
-  log('Assertion: ', Array.isArray(attendees))
+  // log('Request: ', attendees)
+  // log('Assertion: ', Array.isArray(attendees))
 
   try {
     const newAttendanceSheet = await pool.query(
@@ -134,14 +135,16 @@ app.post('/api/attendance/post', async (req: any, res: any) => {
 })
 
 //UPDATE attendance sheet
-app.put('/api/attendance/:id', async (req: any, res: any) => {
-  const id = req.params.id
-  const { accountIDs } = req.body
+app.put('/api/attendance/:attendanceID', async (req: any, res: any) => {
+  const attendancesheetid = req.params.attendanceID
+  const { attendees } = req.body
+  // console.log('attendanceID:', req.params.attendanceID)
+  // console.log('attendees:', req.body.attendees)
 
   try {
     const updatedSheet = await pool.query(
-      'UPDATE "AttendanceSheet" SET attendees = $1 WHERE id = $2 RETURNING *',
-      [accountIDs, id]
+      'UPDATE "AttendanceSheet" SET attendees = $1 WHERE attendancesheetid = $2 RETURNING *',
+      [attendees, attendancesheetid]
     )
 
     if (updatedSheet.rows.length === 0) {

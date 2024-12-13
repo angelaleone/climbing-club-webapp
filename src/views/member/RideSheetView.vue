@@ -1,3 +1,4 @@
+<!-- this file was not finished functionally -->
 <template>
   <div>
     <div class="title-row">
@@ -23,7 +24,7 @@
     <div class="content-container">
       <v-row class="row-container">
         <div class="card-div">
-          <v-card>
+          <v-card class="card-styles">
             <v-card-title> Driver: Angela Leone </v-card-title>
             <v-card-subtitle class="subtitle">
               <v-row>
@@ -83,32 +84,21 @@ export default defineComponent({
     const ilstuEmail = ref('')
     const password = ref('')
 
+    //using ride store
     const rideStore = useRideEventStore()
     const currentRideEvent = rideStore.getCurrentRideEvent
     const eventName = currentRideEvent.name
     const eventLocation = currentRideEvent.location
     const eventDate = currentRideEvent.date
 
+    //date conversion
     const utcDate = new Date(eventDate)
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
-    const submit = async () => {
+    //should update carpool in db, but no api endpoint was created
+    function submit() {
       router.push('/confirm')
-      try {
-        const response = await axios.post('http://localhost:3001/api/accounts/post', {
-          admin_user: false,
-          first_name: firstName.value,
-          last_name: lastName.value,
-          phone: phone.value,
-          ilstu_email: ilstuEmail.value,
-          username_ilstu: ilstuEmail.value.split('@')[0],
-          password: password.value
-        })
-        console.log('Account created:', response.data)
-      } catch (error) {
-        console.error('Error creating account:', error)
-      }
     }
 
     const selected = ref([])
@@ -187,5 +177,10 @@ export default defineComponent({
   flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
+}
+.card-styles {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #c5d1d8;
 }
 </style>

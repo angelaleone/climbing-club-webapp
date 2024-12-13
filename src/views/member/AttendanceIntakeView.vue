@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import router from '@/router'
 import { useUserStore } from '@/stores/userStore'
 import { useAttendanceStore } from '@/stores/attendanceStore'
 import axios from 'axios'
+import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'AttendanceIntake',
@@ -14,22 +16,26 @@ export default defineComponent({
       forceRerender()
     })
     const uniqueKey = ref(0)
+    //force rerender updates DOM, implementing visual changes
     const forceRerender = () => {
       uniqueKey.value++
     }
-
     const showThanks = ref(false)
     const loading = ref(false)
     const input = ref('')
     const inputError = ref('')
 
+    //using session store
+    const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(false)
+
     //using attendance store
     const attendanceStore = useAttendanceStore()
     const attendanceID = attendanceStore.getAttendanceID
+    console.log('Attendance id in store', attendanceID)
     const currentAttendanceSheet = attendanceStore.getCurrentAttendanceSheet
     const attendanceName = currentAttendanceSheet.date
-    //this only works if we update the selected attendence sheet in the attendance sheet store in the create attendance screen
-    const attendees = ref([])
+    const attendees = ref<string[]>([])
 
     function validateInput() {
       if (!input.value.trim()) {
@@ -55,16 +61,28 @@ export default defineComponent({
       input.value = ''
     }
 
+    const updatedAttendanceSheet = ref<AttendanceSheet>({
+      adminID: 0,
+      attendees: [],
+      date: ''
+    })
+
     const exitAttendanceMode = async () => {
       loading.value = true
-      //this put doesnt really work
+
       try {
-        const response = await axios.put(`/api/attendance/${attendanceID}`, {
+        console.log('Sending request with:', {
+          attendanceID,
           attendees: attendees.value
         })
+        const response = await axios.put(`http://localhost:3001/api/attendance/${attendanceID}`, {
+          attendees: attendees.value
+        })
+        updatedAttendanceSheet.value = response.data
+        attendanceStore.setSelectedAttendanceSheet(updatedAttendanceSheet.value)
         loading.value = false
         router.push('/confirmadmin')
-        console.log('made it to the exit screen')
+        console.log('updated attendance sheet', updatedAttendanceSheet.value)
         return response.data
       } catch (error) {
         router.push('/confirmadmin')
@@ -135,13 +153,15 @@ export default defineComponent({
 .long-input {
   padding: 1vh;
   width: 80vh;
+  margin-left: 8vh;
 }
 .btn-group-container {
   justify-content: center;
 }
 .btn {
   min-width: 10vh;
-  margin: 5vh;
+  margin: 1vh;
+  margin-bottom: 3vh;
 }
 
 .title-row {
@@ -160,7 +180,7 @@ export default defineComponent({
   padding-right: 2vh;
 }
 .submit-btn {
-  background-color: #ead2ac;
+  background-color: #e6b89c;
 }
 .exit-btn {
   align-content: center;

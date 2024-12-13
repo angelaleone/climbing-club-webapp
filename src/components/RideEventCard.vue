@@ -4,7 +4,7 @@
       <v-row class="title-row">
         <div>{{ rideEvent.name }}</div>
         <v-spacer></v-spacer>
-        <v-icon size="x-small" @click="deleterideEvent" class="delete-icon">mdi-delete</v-icon>
+        <!-- <v-icon size="x-small" @click="deleterideEvent" class="delete-icon">mdi-delete</v-icon> -->
         <v-icon size="x-small" @click="shareRideEvent" class="edit-icon">mdi-share</v-icon>
       </v-row>
     </v-card-title>
@@ -37,12 +37,14 @@ const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
 const rideStore = useRideEventStore()
 
+//the share functionality should copy a unique url to the user's clipboard
 const shareRideEvent = () => {
   console.log('share event', rideEvent)
   rideStore.setselectedRideEvent(rideEvent)
   router.push('/ridesheetselection')
 }
 
+//this api endpoint was never created
 const deleterideEvent = () => {
   console.log('Delete ride event', rideEvent)
 }
@@ -53,6 +55,9 @@ const deleterideEvent = () => {
   margin: 1vh;
   width: 110vh;
   height: 13vh;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #c5d1d8;
 }
 .edit-icon {
   margin-left: 8px;

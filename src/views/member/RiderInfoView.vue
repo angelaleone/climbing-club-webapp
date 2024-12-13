@@ -76,44 +76,34 @@ import router from '@/router'
 import { useRideEventStore } from '@/stores/rideEventStore'
 import { toZonedTime } from 'date-fns-tz'
 import { format } from 'date-fns'
+import { useUserStore } from '@/stores/userStore'
 
 export default defineComponent({
   name: 'RiderInfo',
   setup() {
-    const firstName = ref('')
-    const lastName = ref('')
-    const phone = ref('')
-    const ilstuEmail = ref('')
-    const password = ref('')
+    //user values
+    const userStore = useUserStore()
+    const firstName = userStore.selectedUser.first_name
+    const lastName = userStore.selectedUser.last_name
+    const phone = userStore.selectedUser.phone
+    const ilstuEmail = userStore.selectedUser.email
+
     const loading = ref(false)
+
+    //using ride store
     const rideStore = useRideEventStore()
     const currentRideEvent = rideStore.getCurrentRideEvent
     const eventName = currentRideEvent.name
     const eventLocation = currentRideEvent.location
     const eventDate = currentRideEvent.date
 
+    //date conversion
     const utcDate = new Date(eventDate)
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
-    const submit = async () => {
-      try {
-        loading.value = true
-        const response = await axios.post('http://localhost:3001/api/accounts/post', {
-          admin_user: false,
-          first_name: firstName.value,
-          last_name: lastName.value,
-          phone: phone.value,
-          ilstu_email: ilstuEmail.value,
-          username_ilstu: ilstuEmail.value.split('@')[0],
-          password: password.value
-        })
-        loading.value = false
-        console.log('Account created:', response.data)
-      } catch (error) {
-        loading.value = false
-        console.error('Error creating account:', error)
-      }
+    //this should contain an api call to update the carpool but it was never created
+    function submit() {
       router.push('/ridesheet')
     }
 
@@ -122,7 +112,6 @@ export default defineComponent({
       lastName,
       phone,
       ilstuEmail,
-      password,
       submit,
       loading,
       eventName,

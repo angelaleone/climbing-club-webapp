@@ -10,7 +10,7 @@ export default defineComponent({
     RideEventCard
   },
   setup() {
-    // const rideEvent = ref<RideEvent[]>([])
+    //im not using this anymore but was used for initial testing
     const rideEvent = {
       rideEventID: 20,
       location: '1500 Main St., Normal, IL',
@@ -19,7 +19,7 @@ export default defineComponent({
       name: 'Upper Limits: Pink Out'
     }
 
-    //fetch ride events
+    //fetch all ride events
     const rideEvents = ref()
 
     const fetchRideEvents = async () => {

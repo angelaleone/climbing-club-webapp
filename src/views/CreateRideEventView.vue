@@ -13,6 +13,7 @@ export default defineComponent({
     const location = ref()
     const name = ref()
 
+    //created ride event with form information
     const createAndNavigate = async () => {
       loading.value = true
       try {
@@ -70,7 +71,7 @@ export default defineComponent({
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="createAndNavigate()"> submit </v-btn>
+            <v-btn class="btn" @click="createAndNavigate()" rounded="xl"> submit </v-btn>
           </div>
         </v-row>
       </v-col>
@@ -112,7 +113,7 @@ export default defineComponent({
 .btn {
   min-width: 10vh;
   margin-top: 2vh;
-  background-color: #ead2ac;
+  background-color: #e6b89c;
 }
 .btn-group-container {
   justify-content: center;

@@ -6,6 +6,7 @@ import router from '@/router'
 import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
 import { useAttendanceStore } from '@/stores/attendanceStore'
+import type { AttendanceSheet } from '@/api/types/AttendanceSheet'
 
 export default defineComponent({
   name: 'CreateAttendanceSheet',
@@ -30,29 +31,33 @@ export default defineComponent({
       console.log('formatted date', date.value)
     }
 
+    const createdAttendanceSheet = ref<AttendanceSheet>({
+      adminID: 0,
+      attendees: [],
+      date: ''
+    })
+
+    //creating an attendance sheet with form information, adminID should be passed dynamically but for now is 1
     const createAndNavigate = async () => {
       loading.value = true
       formatDate()
       try {
         const response = await axios.post('http://localhost:3001/api/attendance/post', {
+          // adminID: adminID,
           adminID: 1,
           attendees: [],
           date: formattedDate.value
         })
+        createdAttendanceSheet.value = response.data
         console.log('attendance sheet created:', response.data)
+        useAttendance.setSelectedAttendanceSheet(createdAttendanceSheet.value)
+        router.push({
+          path: '/attendance',
+          force: true
+        })
       } catch (error) {
         console.error('Error creating attendance sheet:', error)
       }
-      const createdAttendanceSheet = {
-        adminID: adminID,
-        accountIDs: [],
-        date: formattedDate.value
-      }
-      useAttendance.setSelectedAttendanceSheet(createdAttendanceSheet)
-      router.push({
-        path: '/attendance',
-        force: true
-      })
     }
 
     return {
@@ -89,7 +94,7 @@ export default defineComponent({
         </v-row>
         <v-row class="btn-group-container">
           <div>
-            <v-btn class="btn" @click="createAndNavigate()" :loading="loading">
+            <v-btn class="btn" rounded="xl" @click="createAndNavigate()" :loading="loading">
               create and start
             </v-btn>
           </div>
@@ -131,7 +136,7 @@ export default defineComponent({
 .btn {
   min-width: 10vh;
   margin-top: 2vh;
-  background-color: #ead2ac;
+  background-color: #e6b89c;
 }
 .btn-group-container {
   justify-content: center;
