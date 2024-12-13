@@ -14,24 +14,29 @@
         <v-row class="row-styles">
           <div class="name-input">
             <v-text-field v-model="firstName" label="First Name"></v-text-field>
+            <span v-if="firstNameError" class="error">{{ firstNameError }}</span>
           </div>
           <div class="name-input">
             <v-text-field v-model="lastName" label="Last Name"></v-text-field>
+            <span v-if="lastNameError" class="error">{{ lastNameError }}</span>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="phone" label="Phone Number"></v-text-field>
+            <span v-if="phoneError" class="error">{{ phoneError }}</span>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="ilstuEmail" label="ilstu email (@ilstu.edu)"></v-text-field>
+            <span v-if="ilstuEmailError" class="error">{{ ilstuEmailError }}</span>
           </div>
         </v-row>
         <v-row class="row-styles">
           <div class="long-input">
             <v-text-field v-model="password" label="Password" type="password"></v-text-field>
+            <span v-if="passwordError" class="error">{{ passwordError }}</span>
           </div>
         </v-row>
         <v-row class="btn-group-container">
@@ -71,10 +76,82 @@ export default defineComponent({
     const success = ref(false)
     const loading = ref(false)
     const errorMsg = ref(false)
+    const firstNameError = ref('')
+    const lastNameError = ref('')
+    const phoneError = ref('')
+    const ilstuEmailError = ref('')
+    const passwordError = ref('')
+
+    const validateFirstName = () => {
+      if (!firstName.value.trim()) {
+        firstNameError.value = 'First Name is required.'
+        return false
+      } else {
+        firstNameError.value = ''
+        return true
+      }
+    }
+
+    const validateLastName = () => {
+      if (!lastName.value.trim()) {
+        lastNameError.value = 'Last Name is required.'
+        return false
+      } else {
+        lastNameError.value = ''
+        return true
+      }
+    }
+
+    const validatePhone = () => {
+      if (!phone.value.trim()) {
+        phoneError.value = 'Phone Number is required.'
+        return false
+      } else {
+        phoneError.value = ''
+        return true
+      }
+    }
+
+    const validateEmail = () => {
+      const emailPattern = /@ilstu\.edu$/
+      if (!emailPattern.test(ilstuEmail.value)) {
+        ilstuEmailError.value = 'Email must end with @ilstu.edu.'
+        return false
+      } else {
+        ilstuEmailError.value = ''
+        return true
+      }
+    }
+
+    const validatePassword = () => {
+      if (password.value.length < 12) {
+        passwordError.value = 'Password must be at least 12 characters.'
+        return false
+      } else {
+        passwordError.value = ''
+        return true
+      }
+    }
 
     const submit = async () => {
-      loading.value = true
+      const isFirstNameValid = validateFirstName()
+      const isLastNameValid = validateLastName()
+      const isPhoneValid = validatePhone()
+      const isEmailValid = validateEmail()
+      const isPasswordValid = validatePassword()
+
+      if (
+        !isFirstNameValid ||
+        !isLastNameValid ||
+        !isPhoneValid ||
+        !isEmailValid ||
+        !isPasswordValid
+      ) {
+        return
+      }
+
       try {
+        loading.value = true
         const response = await axios.post('http://localhost:3001/api/accounts/post', {
           admin_user: false,
           first_name: firstName.value,
@@ -95,6 +172,16 @@ export default defineComponent({
     }
 
     const cancel = () => {
+      firstName.value = ''
+      lastName.value = ''
+      phone.value = ''
+      ilstuEmail.value = ''
+      password.value = ''
+      firstNameError.value = ''
+      lastNameError.value = ''
+      phoneError.value = ''
+      ilstuEmailError.value = ''
+      passwordError.value = ''
       router.push('/')
     }
 
@@ -108,6 +195,16 @@ export default defineComponent({
       phone,
       ilstuEmail,
       password,
+      firstNameError,
+      lastNameError,
+      phoneError,
+      ilstuEmailError,
+      passwordError,
+      validateFirstName,
+      validateLastName,
+      validatePhone,
+      validateEmail,
+      validatePassword,
       submit,
       cancel,
       success,
