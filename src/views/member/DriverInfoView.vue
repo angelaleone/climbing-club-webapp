@@ -74,10 +74,13 @@ import { useRideEventStore } from '@/stores/rideEventStore'
 import { toZonedTime } from 'date-fns-tz'
 import { format } from 'date-fns'
 import { useUserStore } from '@/stores/userStore'
+import { useSessionStore } from '@/stores/sessionStore'
 
 export default defineComponent({
   name: 'DriverInfo',
   setup() {
+    const sessionStore = useSessionStore()
+    sessionStore.setAdminStatus(false)
     //user values
     const userStore = useUserStore()
     const firstName = userStore.selectedUser.first_name

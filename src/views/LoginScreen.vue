@@ -23,6 +23,7 @@ export default defineComponent({
     const passwordError = ref('')
 
     onMounted(() => {
+      sessionStore.setAdminStatus(false)
       userStore.clearSelectedUser()
       forceRerender()
     })
