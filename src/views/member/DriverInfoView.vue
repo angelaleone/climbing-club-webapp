@@ -52,6 +52,7 @@
         <v-row class="row-styles">
           <div class="name-input">
             <v-select :items="numbers" density="comfortable" label="Number of Seats"></v-select>
+            <span v-if="seatError" class="error">{{ seatError }}</span>
           </div>
         </v-row>
         <v-row class="btn-group-container">
@@ -59,6 +60,13 @@
             <v-btn class="submit-btn btn" rounded="xl" :loading="loading" @click="submit"
               >submit</v-btn
             >
+          </div>
+        </v-row>
+        <v-row class="btn-group-container">
+          <div>
+            <v-btn variant="plain" density="compact" size="x-small" text>
+              This is not my information
+            </v-btn>
           </div>
         </v-row>
       </v-col>
@@ -88,6 +96,8 @@ export default defineComponent({
     const phone = userStore.selectedUser.phone
     const ilstuEmail = userStore.selectedUser.email
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const selectedSeats = ref<number | null>(null)
+    const seatError = ref('')
     const loading = ref(false)
 
     //using ride store
@@ -102,6 +112,16 @@ export default defineComponent({
     const chicagoDate = toZonedTime(utcDate, 'America/Chicago')
     const formattedDate = format(chicagoDate, 'MMMM dd, yyyy, hh:mm a')
 
+    const validateSeats = () => {
+      if (!selectedSeats.value) {
+        seatError.value = 'Please select the number of seats.'
+        return false
+      } else {
+        seatError.value = ''
+        return true
+      }
+    }
+
     //this should contain an api call to update the carpool but it was never created
     function submit() {
       router.push('/confirm')
@@ -115,6 +135,8 @@ export default defineComponent({
       submit,
       loading,
       numbers,
+      selectedSeats,
+      seatError,
       eventName,
       eventLocation,
       formattedDate
